@@ -1,0 +1,214 @@
+/* Base styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    line-height: 1.6;
+    background-color: #f8f9fa;
+    color: #333;
+}
+
+.container {
+    display: grid;
+    grid-template-columns: 1fr 2fr; /* Left column for camera, right column for quiz */
+    gap: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+h1 {
+    grid-column: 1 / -1; /* Span across both columns */
+    text-align: center;
+    margin-bottom: 20px;
+    color: #007bff;
+}
+
+h2 {
+    margin-bottom: 15px;
+    color: #343a40;
+}
+
+/* Setup and webcam styles */
+.setup-container {
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    text-align: center;
+}
+
+.webcam-container {
+    width: 100%;
+    height: auto;
+    background-color: #e9ecef;
+    border-radius: 8px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    aspect-ratio: 4/3; /* Maintain aspect ratio for webcam */
+}
+
+#webcam {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Button styles */
+.btn {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+}
+
+.btn:hover {
+    background-color: #0069d9;
+}
+
+.btn:disabled {
+    background-color: #6c757d;
+    cursor: not-allowed;
+}
+
+.button-container {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+/* Quiz container styles */
+.quiz-container, .start-test-container, .score-container {
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+}
+
+.start-test-container {
+    text-align: center;
+}
+
+/* Progress bar */
+.progress-bar {
+    height: 10px;
+    background-color: #e9ecef;
+    border-radius: 5px;
+    margin-bottom: 20px;
+    overflow: hidden;
+}
+
+.progress {
+    height: 100%;
+    background-color: #28a745;
+    width: 0%;
+    transition: width 0.3s ease;
+}
+
+/* Question styles */
+.question {
+    font-size: 20px;
+    margin-bottom: 20px;
+    padding: 10px;
+    background-color: #f8f9fa;
+    border-radius: 4px;
+}
+
+/* Options styles */
+.options {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.option {
+    padding: 15px;
+    background-color: #f1f3f5;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.option:hover {
+    background-color: #e9ecef;
+}
+
+.option.selected {
+    background-color: #007bff;
+    color: white;
+}
+
+/* Timer styles */
+.time-container {
+    text-align: right;
+    margin-bottom: 15px;
+    font-weight: bold;
+}
+
+/* Notification styles */
+.notification-box {
+    padding: 10px;
+    margin: 10px 0;
+    border-radius: 4px;
+    transition: opacity 0.3s ease;
+    opacity: 0;
+}
+
+.notification-box.visible {
+    opacity: 1;
+}
+
+/* Status message styles */
+.status-message, .status-success {
+    padding: 10px;
+    margin: 10px 0;
+    border-radius: 4px;
+    text-align: center;
+}
+
+/* Score container */
+.score-container {
+    text-align: center;
+}
+
+#score {
+    font-size: 24px;
+    margin: 20px 0;
+}
+
+/* Utility classes */
+.hidden {
+    display: none;
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+    .container {
+        grid-template-columns: 1fr; /* Stack columns on smaller screens */
+        padding: 10px;
+    }
+
+    .webcam-container {
+        aspect-ratio: 16/9; /* Adjust aspect ratio for mobile */
+    }
+
+    .question {
+        font-size: 18px;
+    }
+
+    .option {
+        padding: 12px;
+    }
+}

@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Advanced Quiz App</title>
+  <link rel="stylesheet" href="quiz.css">
+  <style>
+    /* Additional styles for environment check flow */
+    .status-message {
+      margin: 10px 0;
+      padding: 10px;
+      background-color: #f8f9fa;
+      border-left: 4px solid #6c757d;
+      border-radius: 4px;
+      font-size: 16px;
+    }
+    
+    .status-success {
+      margin: 10px 0;
+      padding: 10px;
+      background-color: #d4edda;
+      border-left: 4px solid #28a745;
+      border-radius: 4px;
+      font-size: 16px;
+      color: #155724;
+    }
+    
+    .setup-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+    
+    .webcam-container {
+      position: relative;
+      margin-bottom: 20px;
+      border: 2px solid #ddd;
+      border-radius: 8px;
+      overflow: hidden;
+    }
+    
+    .notification-box {
+      padding: 10px;
+      margin: 10px 0;
+      border-radius: 4px;
+      background-color: #fcf8e3;
+      color: #8a6d3b;
+      border-left: 4px solid #f0ad4e;
+      transition: opacity 0.3s ease;
+      opacity: 0;
+    }
+    
+    .notification-box.visible {
+      opacity: 1;
+    }
+    
+    .option.selected {
+      background-color: #007bff;
+      color: white;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Advanced Quiz App</h1>
+    
+    <!-- Setup/Webcam Section -->
+    <div id="setup-container" class="setup-container">
+      <h2>Quiz Setup</h2>
+      <p>Please enable your camera to start the environment check.</p>
+      
+      <!-- Webcam display -->
+      <div class="webcam-container">
+        <video id="webcam" width="320" height="240" autoplay class="hidden"></video>
+      </div>
+      
+      <div id="status-message" class="status-message">Enable camera to begin</div>
+      <button class="btn" id="start-webcam" onclick="startWebcam()">Enable Camera Access</button>
+    </div>
+    
+    <!-- Start Test Section -->
+    <div id="start-test-container" class="start-test-container hidden">
+      <h2>Environment Check Complete</h2>
+      <p>You're all set! Ready to start the quiz?</p>
+      <button class="btn" id="start-test-btn" onclick="startQuiz()">Start Quiz</button>
+    </div>
+    
+    <!-- Quiz Section -->
+    <div id="quiz-container" class="quiz-container hidden">
+      <!-- Progress bar -->
+      <div id="progress-bar" class="progress-bar">
+        <div id="progress" class="progress"></div>
+      </div>
+
+      <div id="time-left-container" class="time-container">
+        Time Left: <span id="time-left">30</span>s  
+      </div>
+
+      <div id="notification-box" class="notification-box hidden"></div>
+      
+      <!-- Question and options -->
+      <div id="question" class="question"></div>
+      <div id="options" class="options"></div>
+      
+      <!-- Navigation buttons -->
+      <div class="button-container">
+        <button id="back-btn" class="btn" onclick="goBack()" disabled>Previous</button>
+        <button id="next-btn" class="btn" onclick="loadNextQuestion()" disabled>Next</button>
+      </div>
+    </div>
+    
+    <!-- Score Section -->
+    <div id="score-container" class="score-container hidden">
+      <h2>Quiz Complete!</h2>
+      <p id="score"></p>
+      <button class="btn" onclick="restartQuiz()">Restart Quiz</button>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/blazeface"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/coco-ssd"></script>
+  <script src="quiz.js"></script>
+</body>
+</html>

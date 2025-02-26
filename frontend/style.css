@@ -1,0 +1,140 @@
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f4f4f9;
+    color: #333;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-image: url('tt.jpg');
+    background-size: cover; 
+    background-position: center; 
+    background-attachment: fixed; 
+}
+
+.container {
+    text-align: center;
+    background-color: rgba(255, 255, 255, 0.8); 
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+    padding: 30px;
+    margin-right: 530px;
+    border-radius: 10px;
+    width: 100%;
+    max-width: 400px;
+}
+
+h1 {
+    color: #007bff;
+    font-size: 2.5em;
+    margin-bottom: 20px;
+}
+
+.form-container {
+    background-color: #f9f9f9;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+}
+
+.form-container h2 {
+    font-size: 1.8em;
+    color: #333;
+    margin-bottom: 15px;
+}
+
+input {
+    display: block;
+    margin: 10px auto;
+    padding: 12px 15px;
+    width: 80%;
+    font-size: 1em;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    box-sizing: border-box;
+    transition: all 0.3s ease;
+}
+
+input:focus {
+    border-color: #007bff;
+    outline: none;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+
+button {
+    padding: 12px 20px;
+    background-color: #007bff;
+    color: white;
+    font-size: 1.1em;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    width: 85%;
+    margin-top: 10px;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+button:active {
+    background-color: #003f7f;
+}
+
+.hidden {
+    display: none;
+}
+
+#quizPage {
+    display: block;
+    font-size: 1.5em;
+    color: #333;
+    margin-top: 20px;
+}
+
+@media (max-width: 1024px) {
+    .container {
+        margin-right: 0;
+        max-width: 90%;
+    }
+    h1 {
+        font-size: 2.2em;
+    }
+}
+
+@media (max-width: 768px) {
+    .container {
+        padding: 20px;
+    }
+    h1 {
+        font-size: 2em;
+    }
+    .form-container {
+        padding: 15px;
+    }
+    input, button {
+        width: 90%;
+    }
+}
+
+@media (max-width: 480px) {
+    body {
+        padding: 10px;
+    }
+    .container {
+        padding: 15px;
+        margin-right: 0;
+    }
+    h1 {
+        font-size: 1.8em;
+    }
+    input, button {
+        width: 100%;
+    }
+    button {
+        font-size: 1em;
+    }
+}
