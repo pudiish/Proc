@@ -5,30 +5,46 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Quiz App</title>
   <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 </head>
 <body>
-  <div class="container">
-    <h1>Welcome to Quiz Genius</h1>
+  <header>
+    <div class="nav-container">
+        <div class="logo">
+            <img src="PrepBuddy.svg" alt="PrepBuddy">
+        </div>
 
-    <form id="loginForm" class="form-container">
-      <h2>Login</h2>
-      <input type="text" id="loginUsername" placeholder="Enter Username" required />
-      <input type="password" id="loginPassword" placeholder="Enter Password" required />
-      <button type="submit">Login</button>
-      <p>Don't have an account? <button type="button" id="showRegister">Register</button></p>
-    </form>
-    
-    <form id="registerForm" class="form-container hidden">
-      <h2>Register</h2>
-      <input type="text" id="username" placeholder="Enter Username" required />
-      <input type="password" id="password" placeholder="Enter Password" required />
-      <button type="submit">Register</button>
-      <p>Already have an account? <button type="button" id="showLogin">Login</button></p>
-    </form>
-    
-    <div id="quizPage" class="hidden">
-      <h2>Welcome to the Quiz!</h2>
-      <p>Start your journey of knowledge.</p>
+        <ul class="menu">
+            <li><a href="#" id="showLogin">Login</a></li>
+            <li><a href="#" id="showRegister">Register</a></li>
+            <li><a href="/frontend/quiz.html" class="nav-link">Contests</a></li>
+        </ul>
+    </div>
+  </header>
+  
+  <div class="main-content">
+    <div class="container">
+      <h1>Welcome to PrepBuddy!</h1>
+
+      <form id="loginForm" class="form-container">
+        <h2>Login</h2>
+        <input type="text" id="loginUsername" placeholder="Enter Username" required />
+        <input type="password" id="loginPassword" placeholder="Enter Password" required />
+        <button type="submit">Login</button>
+        <p>Don't have an account? <button type="button" id="showRegister">Register</button></p>
+      </form>
+      
+      <form id="registerForm" class="form-container hidden">
+        <h2>Register</h2>
+        <input type="text" id="username" placeholder="Enter Username" required />
+        <input type="password" id="password" placeholder="Enter Password" required />
+        <button type="submit">Register</button>
+        <p>Already have an account? <button type="button" id="showLogin">Login</button></p>
+      </form>
+      
+      <div id="quizPage" class="hidden">
+        <p>Start your journey of knowledge.</p>
+      </div>
     </div>
   </div>
   
@@ -81,7 +97,7 @@
           if (data.token) {
               localStorage.setItem("token", data.token); 
               alert("Login successful!");
-              window.location.href = 'quiz.html'; 
+              window.location.href = 'LMS/LMS.html'; 
           } else {
               alert(data.message); 
           }
@@ -90,7 +106,7 @@
       }
     });
     
-    if (window.location.pathname === "/quiz.html" && !localStorage.getItem("token")) {
+    if (window.location.pathname === "/LMS/LMS.html" && !localStorage.getItem("token")) {
         window.location.href = 'login.html';
     }
   </script>
