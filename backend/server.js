@@ -149,25 +149,43 @@ app.post("/register", async (req, res) => {
 // User Login
 app.post("/login", async (req, res) => {
   const { username, password } = req.body;
-
+  
   try {
-    const user = await User.findOne({ username });
-    if (!user) return res.status(400).json({ error: "❌ Invalid username or password." });
+    console.log(`🔍 Login attempt for username: ${username}`);
 
+    // Find user in database
+    const user = await User.findOne({ username });
+    if (!user) {
+      console.warn(`❌ Login failed: User ${username} not found.`);
+      return res.status(400).json({ error: "❌ Invalid username or password." });
+    }
+
+    // Check password
     const isPasswordValid = await bcrypt.compare(password, user.password);
-    if (!isPasswordValid) return res.status(400).json({ error: "❌ Invalid username or password." });
+    if (!isPasswordValid) {
+      console.warn(`❌ Login failed: Incorrect password for user ${username}`);
+      return res.status(400).json({ error: "❌ Invalid username or password." });
+    }
 
     // Generate session ID
     const sessionId = uuidv4();
-    
-    // Create JWT token with user ID, username, and session ID
+
+    // Generate JWT token
     const token = jwt.sign(
       { id: user._id, username, sessionId }, 
       JWT_SECRET,
-      { expiresIn: '24h' } // Token expiration
+      { expiresIn: '24h' }
     );
-    
-    // Create session record
+
+    // Verify token structure
+    if (!token || token.length < 20) {
+      console.error("🚨 Token generation failed!", token);
+      return res.status(500).json({ error: "❌ Failed to generate authentication token." });
+    }
+
+    console.log(`✅ Token generated for ${username}: ${token.substring(0, 10)}...`);
+
+    // Create session in database
     const session = new Session({
       sessionId,
       userId: user._id,
@@ -178,14 +196,12 @@ app.post("/login", async (req, res) => {
       startTime: new Date()
     });
     await session.save();
-    
-    // Store session in memory for quick access
-    activeSessions.set(sessionId, {
-      userId: user._id,
-      username: user.username,
-      startTime: new Date()
-    });
-    
+
+    console.log(`✅ Session created: ${sessionId} for user ${username}`);
+
+    // Store active session in memory
+    activeSessions.set(sessionId, { userId: user._id, username, startTime: new Date() });
+
     // Log login activity
     const loginLog = new QuizLog({
       username: user.username,
@@ -199,18 +215,23 @@ app.post("/login", async (req, res) => {
       }
     });
     await loginLog.save();
-    
-    res.status(200).json({ 
-      message: "✅ Login successful!", 
+
+    console.log(`📜 Login log saved for user: ${username}`);
+
+    // Send token & session info in response
+    res.status(200).json({
+      message: "✅ Login successful!",
       token,
       sessionId,
       userId: user._id
     });
+
   } catch (err) {
-    console.error("Login error:", err);
+    console.error("❌ Login error:", err);
     res.status(500).json({ error: "❌ Something went wrong." });
   }
 });
+
 
 // Verify Token Endpoint
 app.post("/verify-token", authenticateToken, async (req, res) => {

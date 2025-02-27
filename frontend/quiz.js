@@ -23,7 +23,7 @@ let startTime;
 let faceDetectionModel;
 let objectDetectionModel;
 let environmentChecked = false;
-const username = localStorage.getItem("username") || "Guest"; // Retrieve logged-in user
+
 let cameraMonitoringInterval;
 
 const userSelections = Array(quizQuestions.length).fill(null);
@@ -50,15 +50,164 @@ const nextButton = document.getElementById("next-btn");
 const startTestContainer = document.getElementById("start-test-container");
 const statusMessage = document.getElementById("status-message");
 const setupContainer = document.getElementById("setup-container");
+//const username = localStorage.getItem("username") || "Guest";  // Retrieve logged-in user
+const username = localStorage.getItem("username") || "Guest";
+// Retrieve auth token and session ID from localStorage
+let authToken = localStorage.getItem("token");
+let sessionId = localStorage.getItem("sessionId");
+
+///////////////////////// Nav-Bar /////////////////////////
+
+const menuItems = document.querySelectorAll('.menu > li');
+
+// Add click event listeners to top-level menu items
+menuItems.forEach(item => {
+    item.addEventListener('click', function(e) {
+        // Toggle the submenu visibility
+        const submenu = this.querySelector('.Submenu');
+        if (submenu) {
+            e.preventDefault(); // Prevent navigation only for menu items with submenus
+
+            // Close all other open submenus
+            document.querySelectorAll('.Submenu.active').forEach(menu => {
+                if (menu !== submenu) {
+                    menu.classList.remove('active');
+                }
+            });
+
+            // Toggle current submenu
+            submenu.classList.toggle('active');
+        }
+    });
+});
+
+// Add logout functionality
+const logoutButton = document.getElementById('logout-btn');
+if (logoutButton) {
+    logoutButton.addEventListener('click', function() {
+        // Clear auth token and session ID from localStorage
+        localStorage.removeItem('token');
+        localStorage.removeItem('sessionId');
+        localStorage.removeItem('username');
+
+        // Redirect to login page
+        window.location.href = './index.html';
+    });
+}
+
+////////////////////////////////
+
+
+
+// Ensure submenu items and main links work correctly
+document.querySelectorAll('.nav-link, .Submenu a, .Submenu2 a, .Submenu3 a').forEach(link => {
+    link.addEventListener('click', function(e) {
+        e.stopPropagation(); // Stop event from affecting parent elements
+
+        const targetUrl = this.getAttribute('href');
+        if (targetUrl && targetUrl !== "#") {
+            window.location.href = targetUrl; // Redirect to actual URL
+        }
+    });
+});
+
+// Close menus when clicking outside
+document.addEventListener('click', function(e) {
+    if (!e.target.closest('.menu')) {
+        document.querySelectorAll('.Submenu.active, .Submenu2.active, .Submenu3.active').forEach(menu => {
+            menu.classList.remove('active');
+        });
+    }
+});
+
+// ==================== SEARCH BAR FUNCTIONALITY ====================
+
+const searchIcon = document.querySelector('.SearchIcon');
+const searchBar = document.querySelector('.SearchBar_Header input');
+
+searchIcon.addEventListener('click', function() {
+    searchBar.style.width = searchBar.style.width === '240px' ? '120px' : '240px';
+    searchBar.focus();
+});
+
+
+
 
 // ✅ Initialize quiz when page loads
 document.addEventListener("DOMContentLoaded", function() {
     console.log("✅ DOM fully loaded and parsed");
-    setupContainer.classList.remove("hidden");
-    startTestContainer.classList.add("hidden");
-    quizContainer.classList.add("hidden");
-    updateStatusMessage("Please enable your camera to begin");
+    
+    // Check if auth token exists in localStorage
+    if (!authToken) {
+        console.log("❌ No auth token found in localStorage");
+        alert("Please log in to access the quiz");
+        if (typeof window !== 'undefined') {
+            window.location.href = "./index.html"; // Adjust to your login page URL
+            return;
+        }
+    } else {
+        console.log("✅ Auth token found, verifying...");
+        
+        // Verify token is still valid
+        verifyToken()
+            .then(valid => {
+                if (valid) {
+                    console.log("✅ Token verification successful");
+                    setupContainer.classList.remove("hidden");
+                    startTestContainer.classList.add("hidden");
+                    quizContainer.classList.add("hidden");
+                    updateStatusMessage("Please enable your camera to begin");
+                } else {
+                    console.log("❌ Token verification failed");
+                    alert("Your session has expired. Please log in again.");
+                    // Clear invalid token
+                    localStorage.removeItem("authToken");
+                    localStorage.removeItem("sessionId");
+                    
+                    if (typeof window !== 'undefined') {
+                        window.location.href = "./index.html"; // Adjust to your login page URL
+                    }
+                }
+            })
+            .catch(error => {
+                console.error("❌ Token verification error:", error);
+                alert("An error occurred verifying your session. Please log in again.");
+                if (typeof window !== 'undefined') {
+                    window.location.href = "./index.html";
+                }
+            });
+    }
 });
+
+
+async function verifyToken() {
+    try {
+        console.log("🔍 Verifying token:", authToken ? "Token exists" : "No token");
+        
+        if (!authToken) return false;
+        
+        const response = await fetch("http://localhost:5001/verify-token", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${authToken}`
+            }
+        });
+        
+        if (!response.ok) {
+            console.warn(`⚠️ Token verification HTTP error: ${response.status}`);
+            return false;
+        }
+        
+        const data = await response.json();
+        console.log("✅ Token verification response:", data);
+        return data.valid;
+    } catch (error) {
+        console.error("❌ Token verification failed:", error);
+        return false;
+    }
+}
+
 
 function updateStatusMessage(message, isSuccess = false) {
     if (statusMessage) {
@@ -543,11 +692,22 @@ function finishQuiz() {
 async function logActivity(activity, data = null) {
     try {
         console.log(`📝 Logging quiz activity: ${activity}`);
+        
+        // Verify token exists before making request
+        if (!authToken) {
+            console.error("Cannot log activity: No auth token available");
+            return;
+        }
+        
         await fetch("http://localhost:5001/quiz/log", {
             method: "POST",
-            headers: { "Content-Type": "application/json" },
+            headers: { 
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${authToken}`
+            },
             body: JSON.stringify({ 
                 username, 
+                sessionId,
                 activity, 
                 questionIndex: currentQuestionIndex,
                 data,
@@ -559,17 +719,26 @@ async function logActivity(activity, data = null) {
     }
 }
 
-// ✅ Log camera activities in the database - FIXED VERSION
+// ✅ Log camera activities in the database
 async function logCameraActivity(activity, data = null) {
     try {
         console.log(`📸 Logging camera activity: ${activity}`);
         
-        // Add error handling and retry logic
+        // Make sure we have a token
+        if (!authToken) {
+            console.error("No authentication token available");
+            return;
+        }
+        
         const response = await fetch("http://localhost:5001/camera/log", {
             method: "POST",
-            headers: { "Content-Type": "application/json" },
+            headers: { 
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${authToken}`
+            },
             body: JSON.stringify({ 
                 username, 
+                sessionId,  // Include the sessionId from login
                 activity,
                 questionIndex: quizStarted ? currentQuestionIndex : null,
                 data,
@@ -578,8 +747,15 @@ async function logCameraActivity(activity, data = null) {
         });
         
         if (!response.ok) {
-            console.warn(`⚠️ Camera log request failed with status: ${response.status}`);
-            // Optional: implement retry logic here
+            const errorData = await response.json();
+            console.warn(`⚠️ Camera log request failed: ${response.status}`, errorData);
+            
+            // If token is invalid, try to refresh or redirect to login
+            if (response.status === 401 || response.status === 403) {
+                console.warn("Authentication failed, redirecting to login");
+                // Here you could implement token refresh or just redirect
+                window.location.href = "/index.html";
+            }
         }
     } catch (error) {
         console.error("❌ Failed to log camera activity:", error);

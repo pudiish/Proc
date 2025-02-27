@@ -212,3 +212,149 @@ h2 {
         padding: 12px;
     }
 }
+
+
+
+
+/* Header and Navigation */
+header {
+    background-color: white;
+    padding: 15px 20px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.nav-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.logo img {
+    height: 40px;
+}
+
+.menu {
+    display: flex;
+    list-style: none;
+    gap: 20px;
+    position: relative;
+}
+
+.menu > li {
+    position: relative;
+    cursor: pointer;
+}
+
+.menu > li > a {
+    color: #333;
+    text-decoration: none;
+    font-weight: bold;
+    padding: 10px 0;
+}
+
+.Submenu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: white;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    min-width: 200px;
+    z-index: 100;
+    border-radius: 4px;
+    padding: 10px 0;
+}
+
+.Submenu > li {
+    padding: 8px 15px;
+    position: relative;
+    list-style: none;
+}
+
+.Submenu > li:hover {
+    background-color: #f5f5f5;
+}
+
+.Submenu > li > a {
+    color: #333;
+    text-decoration: none;
+    display: block;
+}
+
+.Submenu2 {
+    position: absolute;
+    left: 100%;
+    top: 0;
+    background-color: white;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    min-width: 200px;
+    border-radius: 4px;
+    padding: 10px 0;
+}
+
+.Submenu2 > li {
+    padding: 8px 15px;
+    position: relative;
+    list-style: none;
+}
+
+.Submenu2 > li:hover {
+    background-color: #f5f5f5;
+}
+
+.Submenu2 > li > a {
+    color: #333;
+    text-decoration: none;
+    display: block;
+}
+
+.Submenu3 {
+    position: absolute;
+    left: 100%;
+    top: 0;
+    background-color: white;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    min-width: 200px;
+    border-radius: 4px;
+    padding: 10px 0;
+}
+
+.Submenu3 > li {
+    padding: 8px 15px;
+    list-style: none;
+}
+
+.Submenu3 > li:hover {
+    background-color: #f5f5f5;
+}
+
+.Submenu3 > li > a {
+    color: #333;
+    text-decoration: none;
+    display: block;
+}
+
+/* Search Bar */
+.SearchBar_Header {
+    display: flex;
+    align-items: center;
+}
+
+.SearchBar_Header input {
+    padding: 8px 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    width: 120px;
+    transition: width 0.3s ease-in-out;
+}
+
+.SearchIcon {
+    cursor: pointer;
+    margin-left: 10px;
+    font-size: 18px;
+    color: #333;
+}
