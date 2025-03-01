@@ -60,90 +60,121 @@ document.addEventListener('DOMContentLoaded', function() {
     // ==================== COURSES DATABASE FUNCTIONALITY ====================
 
     // Function to fetch courses from database
+    // function fetchCourses() {
+    //     return new Promise((resolve) => {
+    //         setTimeout(() => {
+    //             resolve([
+    //                 {
+    //                     id: 1,
+    //                     title: "Java Backend Development - Live",
+    //                     level: "Beginner to Advanced",
+    //                     image: "https://media.geeksforgeeks.org/img-practice/banner/Java-backend-live-thumbnail.png",
+    //                     category: "backend"
+    //                 },
+    //                 {
+    //                     id: 2,
+    //                     title: "DevOps Engineering - Planning to Production",
+    //                     level: "Beginner to Advanced",
+    //                     image: "https://media.geeksforgeeks.org/img-practice/banner/devops-live-thumbnail.png",
+    //                     category: "devops"
+    //                 },
+    //                 {
+    //                     id: 3,
+    //                     title: "Data Structures and Algorithms-Self Paced",
+    //                     level: "Beginner to Advanced",
+    //                     image: "https://media.geeksforgeeks.org/img-practice/banner/dsa-self-paced-thumbnail.png",
+    //                     category: "dsa"
+    //                 },
+    //                 {
+    //                     id: 4,
+    //                     title: "Data Structures and Algorithms in Python-Self Paced",
+    //                     level: "Beginner to Advanced",
+    //                     image: "https://media.geeksforgeeks.org/img-practice/banner/Data-Structures-With-Python-thumbnail.png",
+    //                     category: "dsa"
+    //                 },
+    //                 {
+    //                     id: 5,
+    //                     title: "DSA Live for Working Professionals-Live",
+    //                     level: "Beginner to Advanced",
+    //                     image: "https://media.geeksforgeeks.org/img-practice/banner/geeks-classes-live-thumbnail.png",
+    //                     category: "dsa"
+    //                 },
+    //                 {
+    //                     id: 6,
+    //                     title: "Full Stack Development with React and Node JS -Live",
+    //                     level: "Beginner to Advanced",
+    //                     image: "https://media.geeksforgeeks.org/img-practice/banner/full-stack-node-thumbnail.png",
+    //                     category: "fullstack"
+    //                 },
+    //                 {
+    //                     id: 7,
+    //                     title: "Machine Learning and Data Science",
+    //                     level: "Intermediate to Advanced",
+    //                     image: "https://media.geeksforgeeks.org/img-practice/banner/ml-ds-thumbnail.png",
+    //                     category: "datascience"
+    //                 },
+    //                 {
+    //                     id: 8,
+    //                     title: "Competitive Programming - Live",
+    //                     level: "Intermediate to Advanced",
+    //                     image: "https://media.geeksforgeeks.org/img-practice/banner/competitive-programming-thumbnail.png",
+    //                     category: "dsa"
+    //                 }
+    //             ]);
+    //         }, 500);
+    //     });
+    // }
     function fetchCourses() {
-        return new Promise((resolve) => {
-            setTimeout(() => {
-                resolve([
-                    {
-                        id: 1,
-                        title: "Java Backend Development - Live",
-                        level: "Beginner to Advanced",
-                        image: "https://media.geeksforgeeks.org/img-practice/banner/Java-backend-live-thumbnail.png",
-                        category: "backend"
-                    },
-                    {
-                        id: 2,
-                        title: "DevOps Engineering - Planning to Production",
-                        level: "Beginner to Advanced",
-                        image: "https://media.geeksforgeeks.org/img-practice/banner/devops-live-thumbnail.png",
-                        category: "devops"
-                    },
-                    {
-                        id: 3,
-                        title: "Data Structures and Algorithms-Self Paced",
-                        level: "Beginner to Advanced",
-                        image: "https://media.geeksforgeeks.org/img-practice/banner/dsa-self-paced-thumbnail.png",
-                        category: "dsa"
-                    },
-                    {
-                        id: 4,
-                        title: "Data Structures and Algorithms in Python-Self Paced",
-                        level: "Beginner to Advanced",
-                        image: "https://media.geeksforgeeks.org/img-practice/banner/Data-Structures-With-Python-thumbnail.png",
-                        category: "dsa"
-                    },
-                    {
-                        id: 5,
-                        title: "DSA Live for Working Professionals-Live",
-                        level: "Beginner to Advanced",
-                        image: "https://media.geeksforgeeks.org/img-practice/banner/geeks-classes-live-thumbnail.png",
-                        category: "dsa"
-                    },
-                    {
-                        id: 6,
-                        title: "Full Stack Development with React and Node JS -Live",
-                        level: "Beginner to Advanced",
-                        image: "https://media.geeksforgeeks.org/img-practice/banner/full-stack-node-thumbnail.png",
-                        category: "fullstack"
-                    },
-                    {
-                        id: 7,
-                        title: "Machine Learning and Data Science",
-                        level: "Intermediate to Advanced",
-                        image: "https://media.geeksforgeeks.org/img-practice/banner/ml-ds-thumbnail.png",
-                        category: "datascience"
-                    },
-                    {
-                        id: 8,
-                        title: "Competitive Programming - Live",
-                        level: "Intermediate to Advanced",
-                        image: "https://media.geeksforgeeks.org/img-practice/banner/competitive-programming-thumbnail.png",
-                        category: "dsa"
-                    }
-                ]);
-            }, 500);
-        });
+        fetch("http://localhost:5002/api/courses")  // API URL to get courses
+            .then(response => response.json())
+            .then(courses => {
+                renderCourses(courses);
+            })
+            .catch(error => console.error("❌ Error fetching courses:", error));
     }
 
-    // Function to render courses in the courses section
+    // // Function to render courses in the courses section
+    // function renderCourses(courses) {
+    //     const coursesContainer = document.querySelector('.courses-container');
+
+    //     // Clear existing course elements
+    //     coursesContainer.innerHTML = '';
+
+    //     // Add courses from database
+    //     courses.slice(0, 6).forEach(course => {
+    //         const courseDiv = document.createElement('div');
+    //         courseDiv.className = `P3 ${course.category}`;
+    //         courseDiv.innerHTML = `
+    //             <img src="${course.image}" alt="${course.title}" 
+    //                 style="height: 180px; border-top-right-radius: 10px; border-top-left-radius: 10px; width: 100%;">
+    //             <h5>${course.title}</h5>
+    //             <p>${course.level}</p>
+    //         `;
+
+    //         // Add click event to course div to simulate course selection
+    //         courseDiv.addEventListener('click', () => {
+    //             alert(`You selected: ${course.title}`);
+    //         });
+
+    //         coursesContainer.appendChild(courseDiv);
+    //     });
+    // }
+
+    // Function to render courses dynamically
     function renderCourses(courses) {
         const coursesContainer = document.querySelector('.courses-container');
+        coursesContainer.innerHTML = ''; // Clear existing courses
 
-        // Clear existing course elements
-        coursesContainer.innerHTML = '';
-
-        // Add courses from database
-        courses.slice(0, 6).forEach(course => {
+        courses.forEach(course => {
             const courseDiv = document.createElement('div');
             courseDiv.className = `P3 ${course.category}`;
             courseDiv.innerHTML = `
-                <img src="${course.image}" alt="${course.title}" 
-                    style="height: 180px; border-top-right-radius: 10px; border-top-left-radius: 10px; width: 100%;">
+                <img src="${course.image}" alt="${course.title}">
                 <h5>${course.title}</h5>
-                <p>${course.level}</p>
+                <p>${course.description}</p>
             `;
 
-            // Add click event to course div to simulate course selection
+            // Handle click event for course selection
             courseDiv.addEventListener('click', () => {
                 alert(`You selected: ${course.title}`);
             });
@@ -152,35 +183,60 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // Course filter functionality
+    // // Course filter functionality
+    // const filterButtons = document.querySelectorAll('.course-filters button');
+
+    // filterButtons.forEach(button => {
+    //     button.addEventListener('click', function() {
+    //         // Reset all buttons
+    //         filterButtons.forEach(btn => {
+    //             btn.classList.remove('active-filter');
+    //         });
+
+    //         // Highlight active button
+    //         this.classList.add('active-filter');
+
+    //         // Apply filter
+    //         const category = this.dataset.category;
+
+    //         fetchCourses().then(courses => {
+    //             if (category === 'all') {
+    //                 renderCourses(courses);
+    //             } else {
+    //                 const filteredCourses = courses.filter(course => course.category === category);
+    //                 renderCourses(filteredCourses);
+    //             }
+    //         });
+    //     });
+    // });
+
+
+    // ==================== FILTER COURSES BY CATEGORY ====================
     const filterButtons = document.querySelectorAll('.course-filters button');
 
     filterButtons.forEach(button => {
-        button.addEventListener('click', function() {
-            // Reset all buttons
-            filterButtons.forEach(btn => {
-                btn.classList.remove('active-filter');
-            });
-
-            // Highlight active button
+        button.addEventListener('click', function () {
+            filterButtons.forEach(btn => btn.classList.remove('active-filter'));
             this.classList.add('active-filter');
 
-            // Apply filter
             const category = this.dataset.category;
-
-            fetchCourses().then(courses => {
-                if (category === 'all') {
-                    renderCourses(courses);
-                } else {
-                    const filteredCourses = courses.filter(course => course.category === category);
-                    renderCourses(filteredCourses);
-                }
-            });
+            fetch("http://localhost:5002/api/courses")
+                .then(response => response.json())
+                .then(courses => {
+                    if (category === 'all') {
+                        renderCourses(courses);
+                    } else {
+                        const filteredCourses = courses.filter(course => course.category === category);
+                        renderCourses(filteredCourses);
+                    }
+                })
+                .catch(error => console.error("❌ Error fetching courses:", error));
         });
     });
 
-    // Initialize with all courses
-    fetchCourses().then(courses => {
-        renderCourses(courses);
-    });
+    // // Initialize with all courses
+    // fetchCourses().then(courses => {
+    //     renderCourses(courses);
+    // });
+    fetchCourses();
 });

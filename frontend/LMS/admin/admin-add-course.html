@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin - Add Course</title>
+    <link rel="stylesheet" href="admin.css">
+    <script src="admin.js" defer></script>
+</head>
+
+<body>
+    <header>
+        <div class="nav-container">
+          <div class="logo">
+            <img src="../PrepBuddy.svg" alt="PrepBuddy">
+          </div>
+    
+          <ul class="menu">
+    
+            <li><a href="../LMS.html">Home</a></li>
+            <li><a href="http://127.0.0.1:5500/frontend/practice.html"></a></li>
+            <li><a href="" class="nav-link" id="logout-btn">Logout</a></li>
+    
+          </ul>
+    
+          <div class="SearchBar_Header">
+            <input type="text" placeholder="Search...">
+            <div class="SearchIcon"><i class="fa fa-search"></i></div>
+          </div>
+        </div>
+      </header>
+
+    <div class="course-form-container">
+        <h2>Add a New Course</h2>
+        <form id="adminCourseForm">
+            <label>Title:</label>
+            <input type="text" id="courseTitle" required>
+
+            <label>Description:</label>
+            <textarea id="courseDescription" required></textarea>
+
+            <label>Category:</label>
+            <select id="courseCategory">
+                <!-- Categories will be dynamically inserted here -->
+            </select>
+
+            <label>Image URL:</label>
+            <input type="text" id="courseImage" required>
+
+            <button type="submit">Add Course</button>
+        </form>
+    </div>
+
+</body>
+
+</html>
