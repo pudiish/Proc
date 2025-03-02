@@ -4,7 +4,8 @@ import cors from "cors";
 import bodyParser from "body-parser";
 
 const app = express();
-app.use(bodyParser.json());
+app.use(bodyParser.json({ limit: '50mb' }));
+app.use(bodyParser.urlencoded({ limit: '50mb', extended: true }));
 app.use(cors());
 
 // MongoDB Connection
@@ -16,29 +17,105 @@ mongoose.connect("mongodb://127.0.0.1:27017/lms", {
 
 // Course Schema
 const courseSchema = new mongoose.Schema({
-  title: String,
-  description: String,
-  category: String,
-  image: String,
+  title: { type: String, required: true },
+  description: { type: String, required: true },
+  content: { type: String, required: true },
+  category: { type: String, required: true },
+  image: { type: String, required: true },
+  duration: { type: String, required: true },
+  objectives: { type: [String], required: true }, // Array of strings
+  requirements: { type: [String], required: true }, // Array of strings
+  curriculum: [{
+    title: { type: String, required: true },
+    lectures: [{
+      title: { type: String, required: true },
+      duration: { type: String, required: true },
+      type: { type: String, required: true }
+    }]
+  }],
+  instructor: {
+    name: { type: String, required: true },
+    bio: { type: String, required: true },
+    image: { type: String, required: true }
+  },
+  reviews: {
+    average: { type: Number, required: true },
+    count: { type: Number, required: true },
+    items: [{
+      userName: { type: String, required: true },
+      userImage: { type: String, required: true },
+      date: { type: String, required: true },
+      rating: { type: Number, required: true },
+      content: { type: String, required: true }
+    }]
+  },
+  createdAt: { type: Date, default: Date.now }
 });
 
 const Course = mongoose.model("Course", courseSchema);
 
-// Category Schema
-const categorySchema = new mongoose.Schema({
-  name: String
-});
-
-const Category = mongoose.model("Category", categorySchema);
-
 // API: Add a Course
 app.post("/api/courses", async (req, res) => {
   try {
-    const { title, description, category, image } = req.body;
-    const newCourse = new Course({ title, description, category, image });
+    const {
+      title,
+      description,
+      content,
+      category,
+      image,
+      duration,
+      objectives,
+      requirements,
+      curriculum,
+      instructor,
+      reviews
+    } = req.body;
+
+    // Debugging: Log the incoming request body
+    console.log("Incoming request body:", req.body);
+
+    // Validate required fields
+    if (!title || !description || !content || !category || !image || !duration || !objectives || !requirements || !curriculum || !instructor || !reviews) {
+      return res.status(400).json({ error: "Missing required fields." });
+    }
+
+    // Validate nested fields
+    if (!instructor.name || !instructor.bio || !instructor.image) {
+      return res.status(400).json({ error: "Instructor information is incomplete." });
+    }
+
+    if (!reviews.average || !reviews.count || !reviews.items) {
+      return res.status(400).json({ error: "Reviews information is incomplete." });
+    }
+
+    // Create a new course instance
+    const newCourse = new Course({
+      title,
+      description,
+      content,
+      category,
+      image,
+      duration,
+      objectives,
+      requirements,
+      curriculum,
+      instructor,
+      reviews
+    });
+
+    // Debugging: Log the new course object before saving
+    console.log("New course object:", newCourse);
+
+    // Save the course to the database
     await newCourse.save();
-    res.status(201).json({ message: "✅ Course added successfully!" });
+
+    // Debugging: Log success message
+    console.log("✅ Course saved successfully:", newCourse);
+
+    // Respond with success message
+    res.status(201).json({ message: "✅ Course added!", courseId: newCourse._id });
   } catch (err) {
+    console.error("❌ Error adding course:", err);
     res.status(500).json({ error: "❌ Failed to add course." });
   }
 });
@@ -53,25 +130,24 @@ app.get("/api/courses", async (req, res) => {
   }
 });
 
-// API: Add a Category
-app.post("/api/categories", async (req, res) => {
+// API: Get a specific course by ID
+app.get("/api/courses/:id", async (req, res) => {
   try {
-    const { name } = req.body;
-    const newCategory = new Category({ name });
-    await newCategory.save();
-    res.status(201).json({ message: "✅ Category added successfully!" });
-  } catch (err) {
-    res.status(500).json({ error: "❌ Failed to add category." });
-  }
-});
+    const courseId = req.params.id;
 
-// API: Fetch Categories
-app.get("/api/categories", async (req, res) => {
-  try {
-    const categories = await Category.find();
-    res.json(categories);
+    // Validate the course ID
+    if (!mongoose.Types.ObjectId.isValid(courseId)) {
+      return res.status(400).json({ error: "Invalid course ID" });
+    }
+
+    const course = await Course.findById(courseId);
+    if (!course) {
+      return res.status(404).json({ error: "Course not found" });
+    }
+    res.json(course);
   } catch (err) {
-    res.status(500).json({ error: "❌ Failed to retrieve categories." });
+    console.error("Error fetching course:", err);
+    res.status(500).json({ error: "❌ Failed to retrieve course." });
   }
 });
 

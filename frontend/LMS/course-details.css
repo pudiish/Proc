@@ -1,0 +1,620 @@
+/* Course Details Page Styles */
+.course-details-container {
+    max-width: 1200px;
+    margin: 2rem auto;
+    padding: 0 1rem;
+}
+
+/* Loading spinner */
+.loading-spinner {
+    text-align: center;
+    padding: 3rem 0;
+    font-size: 1.2rem;
+}
+
+.loading-spinner i {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    color: #4285f4;
+}
+
+/* Course header */
+.course-header {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
+    margin-bottom: 2rem;
+    padding: 1.5rem;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.course-image {
+    width: 300px;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 6px;
+}
+
+.course-header-info {
+    flex: 1;
+    min-width: 300px;
+}
+
+.course-header-info h1 {
+    margin-top: 0;
+    margin-bottom: 1rem;
+    color: #333;
+}
+
+.course-meta {
+    display: flex;
+    gap: 1rem;
+    margin: 1rem 0;
+    align-items: center;
+}
+
+.category-badge {
+    background-color: #e1f5fe;
+    color: #0277bd;
+    padding: 0.3rem 0.8rem;
+    border-radius: 16px;
+    font-size: 0.9rem;
+}
+
+.enroll-button {
+    margin-top: 1rem;
+    background-color: #4285f4;
+    color: white;
+    border: none;
+    padding: 0.8rem 1.5rem;
+    border-radius: 4px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.enroll-button:hover {
+    background-color: #3367d6;
+}
+
+/* Course tabs */
+.course-tabs {
+    display: flex;
+    border-bottom: 1px solid #e0e0e0;
+    overflow-x: auto;
+}
+
+.tab-button {
+    padding: 1rem 1.5rem;
+    background: none;
+    border: none;
+    border-bottom: 3px solid transparent;
+    font-size: 1rem;
+    cursor: pointer;
+    white-space: nowrap;
+}
+
+.tab-button.active {
+    color: #4285f4;
+    border-bottom-color: #4285f4;
+    font-weight: 500;
+}
+
+.tab-pane {
+    display: none;
+    padding: 2rem;
+}
+
+.tab-pane.active {
+    display: block;
+}
+
+/* Curriculum Sections */
+.curriculum-section {
+    margin-bottom: 1.5rem;
+    border: 1px solid #e0e0e0;
+    border-radius: 6px;
+    overflow: hidden;
+}
+
+.section-header {
+    padding: 1rem;
+    background-color: #f5f5f5;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+}
+
+.section-header h3 {
+    margin: 0;
+    font-size: 1.1rem;
+}
+
+.section-lectures {
+    padding: 0.5rem 0;
+}
+
+.lecture-item {
+    padding: 0.8rem 1rem;
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.lecture-item:last-child {
+    border-bottom: none;
+}
+
+.lecture-title {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.lecture-title i {
+    color: #666;
+}
+
+/* Instructor section */
+.instructor-profile {
+    display: flex;
+    gap: 1.5rem;
+    align-items: center;
+}
+
+.instructor-image {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.instructor-info {
+    flex: 1;
+}
+
+.instructor-info h3 {
+    margin-top: 0;
+    margin-bottom: 0.5rem;
+}
+
+/* Reviews section */
+.rating-summary {
+    margin-bottom: 2rem;
+}
+
+.average-rating {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    font-size: 1.1rem;
+}
+
+.average-rating span:first-child {
+    font-size: 2.5rem;
+    font-weight: bold;
+}
+
+.stars {
+    color: #ffc107;
+}
+
+.reviews-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.review {
+    padding: 1.5rem;
+    border: 1px solid #e0e0e0;
+    border-radius: 6px;
+}
+
+.review-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 0.8rem;
+}
+
+.reviewer {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+}
+
+.reviewer img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.review-date {
+    color: #777;
+    font-size: 0.9rem;
+    margin-top: 0.2rem;
+}
+
+.review-stars {
+    color: #ffc107;
+    margin-bottom: 0.8rem;
+}
+
+/* Reviews section */
+.rating-summary {
+    margin-bottom: 2rem;
+}
+
+.average-rating {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    font-size: 1.1rem;
+}
+
+.average-rating span:first-child {
+    font-size: 2.5rem;
+    font-weight: bold;
+}
+
+.stars {
+    color: #ffc107;
+}
+
+.reviews-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.review {
+    padding: 1.5rem;
+    border: 1px solid #e0e0e0;
+    border-radius: 6px;
+}
+
+.review-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 0.8rem;
+}
+
+.reviewer {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+}
+
+.reviewer img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.review-date {
+    color: #777;
+    font-size: 0.9rem;
+    margin-top: 0.2rem;
+}
+
+.review-stars {
+    color: #ffc107;
+    margin-bottom: 0.8rem;
+}
+
+/* Related Courses */
+.related-courses h2 {
+    margin-bottom: 1.5rem;
+}
+
+.filter-section {
+    margin-bottom: 1.5rem;
+}
+
+.filter-section label {
+    margin-right: 1rem;
+}
+
+.courses-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 2rem;
+}
+
+.course-card {
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    overflow: hidden;
+    transition: transform 0.3s, box-shadow 0.3s;
+    cursor: pointer;
+}
+
+.course-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+}
+
+.course-card img {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+}
+
+.course-card h3 {
+    padding: 1rem 1rem 0.5rem;
+    margin: 0;
+}
+
+.course-card p {
+    padding: 0 1rem 1rem;
+    color: #555;
+    margin: 0;
+}
+
+.view-course-btn {
+    margin: 0 1rem 1rem;
+    padding: 0.5rem 1rem;
+    background-color: #4285f4;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+/* Navbar styles */
+.nav-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #fff;
+}
+
+.logo img {
+    height: 40px;
+}
+
+.menu {
+    display: flex;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.menu li {
+    position: relative;
+}
+
+.menu li a {
+    padding: 0.5rem 1rem;
+    text-decoration: none;
+    color: #333;
+    display: block;
+}
+
+.menu li:hover > .Submenu {
+    display: block;
+}
+
+.Submenu, .Submenu2 {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    min-width: 200px;
+}
+
+.Submenu2 {
+    left: 100%;
+    top: 0;
+}
+
+.Submenu li, .Submenu2 li {
+    padding: 0.5rem;
+}
+
+.hamburger-menu {
+    display: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+}
+
+.SearchBar_Header {
+    display: flex;
+    align-items: center;
+}
+
+.SearchBar_Header input {
+    padding: 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.SearchIcon {
+    margin-left: 0.5rem;
+    cursor: pointer;
+}
+
+/* Responsive styles for navbar */
+@media (max-width: 768px) {
+    .menu {
+        display: none;
+        flex-direction: column;
+        width: 100%;
+        background-color: #fff;
+        position: absolute;
+        top: 60px;
+        left: 0;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .menu.active {
+        display: flex;
+    }
+
+    .menu li {
+        width: 100%;
+    }
+
+    .menu li a {
+        padding: 1rem;
+    }
+
+    .Submenu, .Submenu2 {
+        position: static;
+        display: none;
+        box-shadow: none;
+    }
+
+    .menu li:hover > .Submenu {
+        display: none;
+    }
+
+    .hamburger-menu {
+        display: block;
+    }
+
+    .SearchBar_Header {
+        display: none;
+    }
+}
+
+/* Media queries for responsiveness */
+@media (max-width: 768px) {
+    .course-header {
+        flex-direction: column;
+    }
+    
+    .course-image {
+        width: 100%;
+        height: auto;
+    }
+    
+    .instructor-profile {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .instructor-image {
+        margin: 0 auto;
+    }
+}
+
+/* Course Content */
+.course-content {
+    padding: 2rem;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-bottom: 2rem;
+}
+
+.course-content h2 {
+    margin-top: 0;
+    color: #333;
+    font-size: 1.8rem;
+    margin-bottom: 1.5rem;
+}
+
+.course-content p {
+    line-height: 1.6;
+    color: #555;
+    margin-bottom: 1.5rem;
+}
+
+/* Responsive Images and Embedded Content */
+.course-content img,
+.course-content iframe,
+.course-content video,
+.course-content embed,
+.course-content object {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin: 1.5rem 0;
+    border-radius: 6px;
+}
+
+/* Ensure iframes (e.g., YouTube videos) are responsive */
+.course-content iframe {
+    aspect-ratio: 16 / 9; /* Default aspect ratio for videos */
+    width: 100%;
+    height: auto;
+}
+
+/* Responsive tables */
+.course-content table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1.5rem 0;
+}
+
+.course-content table th,
+.course-content table td {
+    padding: 0.75rem;
+    border: 1px solid #e0e0e0;
+    text-align: left;
+}
+
+/* Responsive code blocks (if used) */
+.course-content pre {
+    overflow-x: auto;
+    background-color: #f5f5f5;
+    padding: 1rem;
+    border-radius: 6px;
+    margin: 1.5rem 0;
+}
+
+.course-content code {
+    font-family: monospace;
+    font-size: 0.9rem;
+    color: #333;
+}
+
+/* Media Queries for Smaller Screens */
+@media (max-width: 768px) {
+    .course-content img,
+    .course-content iframe,
+    .course-content video,
+    .course-content embed,
+    .course-content object {
+        margin: 1rem 0;
+    }
+
+    .course-content table th,
+    .course-content table td {
+        padding: 0.5rem;
+    }
+
+    .course-content pre {
+        padding: 0.75rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .course-content img,
+    .course-content iframe,
+    .course-content video,
+    .course-content embed,
+    .course-content object {
+        margin: 0.75rem 0;
+    }
+
+    .course-content table {
+        display: block;
+        overflow-x: auto;
+    }
+
+    .course-content pre {
+        padding: 0.5rem;
+    }
+}

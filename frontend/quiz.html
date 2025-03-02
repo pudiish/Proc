@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -15,7 +16,7 @@
       border-radius: 4px;
       font-size: 16px;
     }
-    
+
     .status-success {
       margin: 10px 0;
       padding: 10px;
@@ -25,14 +26,14 @@
       font-size: 16px;
       color: #155724;
     }
-    
+
     .setup-container {
       display: flex;
       flex-direction: column;
       align-items: center;
       margin-bottom: 20px;
     }
-    
+
     .webcam-container {
       position: relative;
       margin-bottom: 20px;
@@ -40,7 +41,7 @@
       border-radius: 8px;
       overflow: hidden;
     }
-    
+
     .notification-box {
       padding: 10px;
       margin: 10px 0;
@@ -51,65 +52,66 @@
       transition: opacity 0.3s ease;
       opacity: 0;
     }
-    
+
     .notification-box.visible {
       opacity: 1;
     }
-    
+
     .option.selected {
       background-color: #007bff;
       color: white;
     }
   </style>
 </head>
+
 <body>
   <header>
     <div class="nav-container">
-        <div class="logo">
-            <img src="./PrepBuddy.svg" alt="PrepBuddy">
-        </div>
+      <div class="logo">
+        <img src="./PrepBuddy.svg" alt="PrepBuddy">
+      </div>
 
-        <ul class="menu">  
+      <ul class="menu">
 
-            <li><a href="LMS/LMS.html">Home</a></li>
-            <li><a href="http://127.0.0.1:5500/frontend/practice.html"></a></li>
-            <li><a href="" class="nav-link" id="logout-btn">Logout</a></li>
+        <li><a href="LMS/LMS.html">Home</a></li>
+        <li><a href="http://127.0.0.1:5500/frontend/practice.html"></a></li>
+        <li><a href="" class="nav-link" id="logout-btn">Logout</a></li>
 
-        </ul>
+      </ul>
 
-        <div class="SearchBar_Header">
-            <input type="text" placeholder="Search...">
-            <div class="SearchIcon"><i class="fa fa-search"></i></div>
-        </div>
+      <div class="SearchBar_Header">
+        <input type="text" placeholder="Search...">
+        <div class="SearchIcon"><i class="fa fa-search"></i></div>
+      </div>
     </div>
-</header>
+  </header>
 
 
 
   <div class="container">
     <h1>Advanced Quiz App</h1>
-    
+
     <!-- Setup/Webcam Section -->
     <div id="setup-container" class="setup-container">
       <h2>Quiz Setup</h2>
       <p>Please enable your camera to start the environment check.</p>
-      
+
       <!-- Webcam display -->
       <div class="webcam-container">
         <video id="webcam" width="320" height="240" autoplay class="hidden"></video>
       </div>
-      
+
       <div id="status-message" class="status-message">Enable camera to begin</div>
       <button class="btn" id="start-webcam" onclick="startWebcam()">Enable Camera Access</button>
     </div>
-    
+
     <!-- Start Test Section -->
     <div id="start-test-container" class="start-test-container hidden">
       <h2>Environment Check Complete</h2>
       <p>You're all set! Ready to start the quiz?</p>
       <button class="btn" id="start-test-btn" onclick="startQuiz()">Start Quiz</button>
     </div>
-    
+
     <!-- Quiz Section -->
     <div id="quiz-container" class="quiz-container hidden">
       <!-- Progress bar -->
@@ -118,22 +120,22 @@
       </div>
 
       <div id="time-left-container" class="time-container">
-        Time Left: <span id="time-left">30</span>s  
+        Time Left: <span id="time-left">30</span>s
       </div>
 
       <div id="notification-box" class="notification-box hidden"></div>
-      
+
       <!-- Question and options -->
       <div id="question" class="question"></div>
       <div id="options" class="options"></div>
-      
+
       <!-- Navigation buttons -->
       <div class="button-container">
         <button id="back-btn" class="btn" onclick="goBack()" disabled>Previous</button>
         <button id="next-btn" class="btn" onclick="loadNextQuestion()" disabled>Next</button>
       </div>
     </div>
-    
+
     <!-- Score Section -->
     <div id="score-container" class="score-container hidden">
       <h2>Quiz Complete!</h2>
@@ -141,10 +143,11 @@
       <button class="btn" onclick="restartQuiz()">Restart Quiz</button>
     </div>
   </div>
-  
+
   <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs"></script>
   <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/blazeface"></script>
   <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/coco-ssd"></script>
   <script src="quiz.js"></script>
 </body>
+
 </html>

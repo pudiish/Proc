@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Course Details - PrepBuddy</title>
+    <meta name="Description" content="Learn programming and computer science through our courses">
+    <meta name="Keywords" content="Coding,C++,Java,Js,problem,Python,C,Software">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+    <link rel="Shortcut Icon" href="/GFG Logo.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Sofia+Sans+Semi+Condensed:ital,wght@0,300;0,400;1,400&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="LMS.css">
+    <link rel="stylesheet" href="course-details.css">
+    <script src="LMS.js" defer></script>
+    <script src="course-details.js" defer></script>
+</head>
+
+<body>
+    <header>
+        <div class="nav-container">
+            <div class="logo">
+                <img src="./PrepBuddy.svg" alt="PrepBuddy">
+            </div>
+    
+            <!-- Hamburger menu for mobile -->
+            <div class="hamburger-menu" id="hamburgerMenu">
+                <i class="fa fa-bars"></i>
+            </div>
+    
+            <!-- Regular menu for larger screens -->
+            <ul class="menu" id="menu">
+                <li>
+                    <a href="#">Tutorials</a>
+                    <ul class="Submenu">
+                        <li>
+                            <a href="#">Data Structures</a>
+                            <ul class="Submenu2">
+                                <li><a href="#">Arrays</a></li>
+                                <li><a href="#">Linked Lists</a></li>
+                                <li><a href="#">Stacks</a></li>
+                                <li><a href="#">Queues</a></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="#">Algorithms</a>
+                            <ul class="Submenu2">
+                                <li><a href="#">Searching</a></li>
+                                <li><a href="#">Sorting</a></li>
+                                <li><a href="#">Graph Algorithms</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="#">Languages</a></li>
+                        <li><a href="#">Web Development</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#">Courses</a>
+                    <ul class="Submenu">
+                        <li><a href="#">DSA Self Paced</a></li>
+                        <li><a href="#">DSA Live</a></li>
+                        <li><a href="#">Java Backend</a></li>
+                        <li><a href="#">Full Stack Development</a></li>
+                    </ul>
+                </li>
+                <li><a href="http://127.0.0.1:5500/frontend/jobs.html">Jobs</a></li>
+                <li><a href="./admin/admin-add-course.html">admin</a></li>
+                <li><a href="/frontend/quiz.html" class="nav-link">Contests</a></li>
+            </ul>
+    
+            <div class="SearchBar_Header">
+                <input type="text" placeholder="Search...">
+                <div class="SearchIcon"><i class="fa fa-search"></i></div>
+            </div>
+        </div>
+    </header>
+
+    <div class="course-details-container">
+        <div class="loading-spinner" id="loadingSpinner">
+            <i class="fa fa-spinner fa-spin"></i>
+            <p>Loading course...</p>
+        </div>
+
+        <div class="course-details" id="courseDetails" style="display: none;">
+            <div class="course-header">
+                <img class="course-image" id="courseImage" src="PrepBuddy.svg" alt="Course Image">
+                <div class="course-header-info">
+                    <h1 id="courseTitle">Course Title</h1>
+                    <div class="course-meta">
+                        <span class="category-badge" id="courseCategory">Category</span>
+                        <span class="rating">⭐ 4.5 (1.2k reviews)</span>
+                    </div>
+                    <button class="enroll-button">Enroll Now</button>
+                </div>
+            </div>
+
+            <div class="course-tabs">
+                <button class="tab-button active" data-tab="overview">Overview</button>
+                <button class="tab-button" data-tab="curriculum">Curriculum</button>
+                <button class="tab-button" data-tab="instructor">Instructor</button>
+                <button class="tab-button" data-tab="reviews">Reviews</button>
+            </div>
+
+            <div class="course-content">
+                <div id="overview" class="tab-pane active">
+                    <h2>Course Content</h2>
+                    <p id="courseOverview"></p>
+                </div>
+                <div id="curriculum" class="tab-pane">
+                    <h2>Curriculum</h2>
+                    <div id="courseCurriculum"></div>
+                </div>
+                <div id="instructor" class="tab-pane">
+                    <h2>Instructor</h2>
+                    <div id="courseInstructor"></div>
+                </div>
+                <div id="reviews" class="tab-pane">
+                    <h2>Reviews</h2>
+                    <div id="courseReviews"></div>
+                </div>
+            </div>
+        </div>
+<!--
+        <div class="course-selection">
+            <label for="courseSelect">Select a Course:</label>
+            <select id="courseSelect">
+            </select>
+        </div>
+-->
+        <div class="related-courses">
+            <h2>Related Courses</h2>
+            <div class="filter-section">
+                <label for="filterCategory">Filter by Category:</label>
+                <select id="filterCategory">
+                    <option value="all">All</option>
+                    <option value="DSA">Data Structures & Algorithms</option>
+                    <option value="Web">Web Development</option>
+                    <option value="Java">Java Backend</option>
+                    <option value="FullStack">Full Stack Development</option>
+                </select>
+            </div>
+            <div class="courses-container" id="relatedCourses">
+                <!-- Related courses will be loaded dynamically -->
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
