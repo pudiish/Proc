@@ -6,8 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PrepBuddy</title>
-    <meta name="Description"
-        content="">
+    <meta name="Description" content="">
     <meta name="Keywords" content="Coding,C++,Java,Js,problem,Python,C,Software">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
     <link rel="Shortcut Icon" href="/GFG Logo.png">
@@ -28,7 +27,7 @@
             </div>
 
             <ul class="menu">
-                <li>
+                <!-- <li>
                     <a href="#">Tutorials</a>
                     <ul class="Submenu">
                         <li>
@@ -61,15 +60,23 @@
                         <li><a href="#">Full Stack Development</a></li>
                     </ul>
                 </li>
-                <li><a href="http://127.0.0.1:5500/frontend/jobs.html">Jobs</a></li>
-                <li><a href="./admin/admin-add-course.html">admin</a></li>
-                <li><a href="/frontend/quiz.html" class="nav-link">Contests</a></li>
-
+                <li><a href="http://127.0.0.1:5500/frontend/jobs.html">Jobs</a></li> -->
+                <li><a href="./admin/admin-add-course.html">Admin</a></li>
+                <li><a href="/frontend/quiz.html" class="nav-link">Proctoring Mode</a></li>
             </ul>
 
+            <!-- Search Bar -->
             <div class="SearchBar_Header">
-                <input type="text" placeholder="Search...">
+                <input type="text" id="searchInput" placeholder="Search courses...">
                 <div class="SearchIcon"><i class="fa fa-search"></i></div>
+            </div>
+
+            <!-- User Profile and Logout -->
+            <div class="user-profile">
+                <span id="usernameDisplay"></span>
+                <div class="logout-dropdown">
+                    <button id="logoutButton">Logout</button>
+                </div>
             </div>
         </div>
     </header>
@@ -80,6 +87,7 @@
             <a href="#">View All</a>
         </div>
 
+        <!-- Course Filters -->
         <div class="course-filters">
             <button data-category="all" class="active-filter">All Courses</button>
             <button data-category="dsa">DSA</button>
@@ -88,53 +96,10 @@
             <button data-category="devops">DevOps</button>
         </div>
 
-        <!-- <div class="courses-container">
-            <div class="P3 backend">
-                <img src="https://media.geeksforgeeks.org/img-practice/banner/Java-backend-live-thumbnail.png"
-                    alt="Java Backend Development">
-                <h5>Java Backend Development - Live</h5>
-                <p>Beginner to Advanced</p>
-            </div>
-
-            <div class="P3 devops">
-                <img src="https://media.geeksforgeeks.org/img-practice/banner/devops-live-thumbnail.png"
-                    alt="DevOps Engineering">
-                <h5>DevOps Engineering - Planning to Production</h5>
-                <p>Beginner to Advanced</p>
-            </div>
-
-            <div class="P3 dsa">
-                <img src="https://media.geeksforgeeks.org/img-practice/banner/dsa-self-paced-thumbnail.png"
-                    alt="Data Structures and Algorithms">
-                <h5>Data Structures and Algorithms-Self Paced</h5>
-                <p>Beginner to Advanced</p>
-            </div>
-
-            <div class="P3 dsa">
-                <img src="https://media.geeksforgeeks.org/img-practice/banner/Data-Structures-With-Python-thumbnail.png"
-                    alt="Data Structures with Python">
-                <h5>Data Structures and Algorithms in Python-Self Paced</h5>
-                <p>Beginner to Advanced</p>
-            </div>
-
-            <div class="P3 dsa">
-                <img src="https://media.geeksforgeeks.org/img-practice/banner/geeks-classes-live-thumbnail.png"
-                    alt="DSA Live for Professionals">
-                <h5>DSA Live for Working Professionals-Live</h5>
-                <p>Beginner to Advanced</p>
-            </div>
-
-            <div class="P3 fullstack">
-                <img src="https://media.geeksforgeeks.org/img-practice/banner/full-stack-node-thumbnail.png"
-                    alt="Full Stack Development">
-                <h5>Full Stack Development with React and Node JS -Live</h5>
-                <p>Beginner to Advanced</p>
-            </div>
-        </div> -->
+        <!-- Courses Container -->
         <div class="courses-container">
             <!-- Courses will be loaded dynamically here -->
         </div>
-        
     </div>
 </body>
 

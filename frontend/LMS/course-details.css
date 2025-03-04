@@ -618,3 +618,50 @@
         padding: 0.5rem;
     }
 }
+
+
+/* Add this to course-details.css */
+.user-profile {
+    position: relative;
+    display: flex;
+    align-items: center;
+    margin-left: 20px;
+}
+
+#usernameDisplay {
+    cursor: pointer;
+    font-weight: bold;
+    color: #333;
+    margin-right: 10px;
+}
+
+.logout-dropdown {
+    display: none;
+    position: absolute;
+    top: 100%;
+    right: 0;
+    background-color: white;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    padding: 10px;
+    border-radius: 4px;
+    z-index: 100;
+}
+
+.user-profile:hover .logout-dropdown {
+    display: block;
+}
+
+#logoutButton {
+    background-color: #FF5900;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+#logoutButton:hover {
+    background-color: #d54a00;
+}
+
+
