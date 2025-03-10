@@ -81,6 +81,7 @@ menuItems.forEach(item => {
     });
 });
 
+
 // Add logout functionality
 const logoutButton = document.getElementById('logout-btn');
 if (logoutButton) {
