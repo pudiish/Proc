@@ -26,24 +26,26 @@ header {
     background-color: white;
     padding: 15px 20px;
     box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-    position: fixed; /* Ensure it remains at the top */
+    position: fixed;
     top: 0;
     left: 0;
-    width: 100%; /* Full width */
+    width: 100%;
     z-index: 1000;
 }
 
-.container{
+.container {
     width: 100%;
     max-width: 1200px;
-    margin: 30 auto;
+    margin: 30px auto;
     padding: 0 20px;
 }
-.container h1{
+
+.container h1 {
     text-align: center;
     color: #FF5900;
     margin-bottom: 15px;
 }
+
 .nav-container {
     display: flex;
     justify-content: space-between;
@@ -76,7 +78,7 @@ header {
     padding-top: 80px;
 }
 
-/* Login Form Styling (Same as Before) */
+/* Login Form Styling */
 .form-container {
     background-color: #f9f9f9;
     padding: 20px;
@@ -85,7 +87,6 @@ header {
     margin-bottom: 20px;
     transition: all 0.3s ease;
 }
-
 
 .form-container:hover {
     transform: translateY(-5px);
