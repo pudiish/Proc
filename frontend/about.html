@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About PrepBuddy</title>
+  <link rel="stylesheet" href="index.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+</head>
+<body>
+  <header>
+    <div class="nav-container">
+        <div class="logo">
+            <img src="./PrepBuddy.svg" alt="PrepBuddy">
+        </div>
+
+        <ul class="menu">
+            <li><a href="/frontend/index.html" class="nav-link">Home</a></li>
+        </ul>
+    </div>
+  </header>
+  
+  <div class="main-content">
+    <div class="container">
+      <h1>About PrepBuddy</h1>
+      
+      <div class="form-container">
+        <h2>Our Mission</h2>
+        <p>PrepBuddy is an innovative learning platform designed to make education more interactive, engaging, and personalized. Our goal is to transform the way students prepare for exams and acquire knowledge.</p>
+      </div>
+
+      <div class="form-container">
+        <h2>What We Offer</h2>
+        <p>We provide a comprehensive learning management system that supports:</p>
+        <ul>
+          <li>Adaptive quizzes tailored to your learning pace</li>
+          <li>Real-time performance tracking</li>
+          <li>Personalized study recommendations</li>
+          <li>Engaging learning modules across multiple subjects</li>
+        </ul>
+      </div>
+
+      <div class="form-container">
+        <h2>Our Team</h2>
+        <p>PrepBuddy was founded by a group of passionate educators and technologists who believe in the power of personalized learning. Our multidisciplinary team combines expertise in education, software development, and learning sciences.</p>
+      </div>
+
+      <div class="form-container">
+        <h2>Contact Us</h2>
+        <p>Have questions or suggestions? We'd love to hear from you!</p>
+        <p>Email: support@prepbuddy.com</p>
+        <p>Phone: +1 (555) 123-4567</p>
+      </div>
+    </div>
+  </div>
+  
+  <script>
+    // Add authentication check script from index.html
+    if (window.location.pathname.endsWith("about.html") && !localStorage.getItem("token")) {
+      // Optional: If you want to redirect unauthenticated users
+      // window.location.href = "index.html";
+    }
+  </script>
+</body>
+</html>

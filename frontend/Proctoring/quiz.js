@@ -81,6 +81,7 @@ menuItems.forEach(item => {
     });
 });
 
+
 // Add logout functionality
 const logoutButton = document.getElementById('logout-btn');
 if (logoutButton) {
@@ -91,8 +92,10 @@ if (logoutButton) {
         localStorage.removeItem('username');
 
         // Redirect to login page
-        window.location.href = './index.html';
+        window.location.href = '../index.html';
     });
+} else {
+    console.error('Logout button not found in the DOM');
 }
 
 ////////////////////////////////
@@ -120,15 +123,15 @@ document.addEventListener('click', function(e) {
     }
 });
 
-// ==================== SEARCH BAR FUNCTIONALITY ====================
+// // ==================== SEARCH BAR FUNCTIONALITY ====================
 
-const searchIcon = document.querySelector('.SearchIcon');
-const searchBar = document.querySelector('.SearchBar_Header input');
+// const searchIcon = document.querySelector('.SearchIcon');
+// const searchBar = document.querySelector('.SearchBar_Header input');
 
-searchIcon.addEventListener('click', function() {
-    searchBar.style.width = searchBar.style.width === '240px' ? '120px' : '240px';
-    searchBar.focus();
-});
+// searchIcon.addEventListener('click', function() {
+//     searchBar.style.width = searchBar.style.width === '240px' ? '120px' : '240px';
+//     searchBar.focus();
+// });
 
 
 
@@ -142,7 +145,7 @@ document.addEventListener("DOMContentLoaded", function() {
         console.log("❌ No auth token found in localStorage");
         alert("Please log in to access the quiz");
         if (typeof window !== 'undefined') {
-            window.location.href = "./index.html"; // Adjust to your login page URL
+            window.location.href = "../index.html"; // Adjust to your login page URL
             return;
         }
     } else {
@@ -165,7 +168,7 @@ document.addEventListener("DOMContentLoaded", function() {
                     localStorage.removeItem("sessionId");
                     
                     if (typeof window !== 'undefined') {
-                        window.location.href = "./index.html"; // Adjust to your login page URL
+                        window.location.href = "../index.html"; // Adjust to your login page URL
                     }
                 }
             })
@@ -173,7 +176,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 console.error("❌ Token verification error:", error);
                 alert("An error occurred verifying your session. Please log in again.");
                 if (typeof window !== 'undefined') {
-                    window.location.href = "./index.html";
+                    window.location.href = "../index.html";
                 }
             });
     }
@@ -754,7 +757,7 @@ async function logCameraActivity(activity, data = null) {
             if (response.status === 401 || response.status === 403) {
                 console.warn("Authentication failed, redirecting to login");
                 // Here you could implement token refresh or just redirect
-                window.location.href = "/index.html";
+                window.location.href = "../index.html";
             }
         }
     } catch (error) {

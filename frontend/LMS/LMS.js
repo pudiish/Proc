@@ -1,4 +1,3 @@
-// Wait for the DOM to be fully loaded before executing
 document.addEventListener('DOMContentLoaded', function () {
     // ==================== NAVIGATION BAR FUNCTIONALITY ====================
 
@@ -55,6 +54,69 @@ document.addEventListener('DOMContentLoaded', function () {
     searchIcon.addEventListener('click', function () {
         searchBar.style.width = searchBar.style.width === '240px' ? '120px' : '240px';
         searchBar.focus();
+    });
+
+    // Add event listener for search input
+    searchBar.addEventListener('input', function (e) {
+        const searchTerm = e.target.value.toLowerCase().trim();
+        filterCoursesBySearchTerm(searchTerm);
+    });
+
+    // Function to filter courses by search term
+    function filterCoursesBySearchTerm(searchTerm) {
+        const coursesContainer = document.querySelector('.courses-container');
+        const courseDivs = coursesContainer.querySelectorAll('.P3');
+
+        courseDivs.forEach(courseDiv => {
+            const courseTitle = courseDiv.querySelector('h5').textContent.toLowerCase();
+            const courseDescription = courseDiv.querySelector('p').textContent.toLowerCase();
+
+            if (courseTitle.includes(searchTerm) || courseDescription.includes(searchTerm)) {
+                courseDiv.style.display = 'block'; // Show the course if it matches the search term
+            } else {
+                courseDiv.style.display = 'none'; // Hide the course if it doesn't match
+            }
+        });
+    }
+
+    // ==================== USER PROFILE AND LOGOUT FUNCTIONALITY ====================
+
+    const usernameDisplay = document.getElementById('usernameDisplay');
+    const logoutButton = document.getElementById('logoutButton');
+
+    // Display the logged-in username
+    const username = localStorage.getItem('username');
+    if (username) {
+        usernameDisplay.textContent = username;
+    } else {
+        // If no username is found, redirect to login page
+        window.location.href = '../index.html';
+    }
+
+    // Handle logout
+    logoutButton.addEventListener('click', async () => {
+        const token = localStorage.getItem('token');
+        if (token) {
+            try {
+                // Call the logout API
+                await fetch('http://localhost:5001/logout', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}`
+                    }
+                });
+
+                // Clear local storage
+                localStorage.removeItem('token');
+                localStorage.removeItem('username');
+
+                // Redirect to login page
+                window.location.href = '../index.html';
+            } catch (error) {
+                console.error('Logout error:', error);
+            }
+        }
     });
 
     // ==================== COURSES DATABASE FUNCTIONALITY ====================

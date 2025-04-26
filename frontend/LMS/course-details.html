@@ -35,7 +35,7 @@
     
             <!-- Regular menu for larger screens -->
             <ul class="menu" id="menu">
-                <li>
+                <!-- <li>
                     <a href="#">Tutorials</a>
                     <ul class="Submenu">
                         <li>
@@ -68,14 +68,23 @@
                         <li><a href="#">Full Stack Development</a></li>
                     </ul>
                 </li>
-                <li><a href="http://127.0.0.1:5500/frontend/jobs.html">Jobs</a></li>
-                <li><a href="./admin/admin-add-course.html">admin</a></li>
-                <li><a href="/frontend/quiz.html" class="nav-link">Contests</a></li>
+                <li><a href="http://127.0.0.1:5500/frontend/jobs.html">Jobs</a></li> -->
+                <li><a href="./LMS.html">Home</a></li>
+                <li><a href="./admin/admin-add-course.html">Admin</a></li>
+                <li><a href="/frontend/Proctoring/quiz.html" class="nav-link">Proctoring Mode</a></li>
             </ul>
     
             <div class="SearchBar_Header">
-                <input type="text" placeholder="Search...">
+                <input type="text" id="searchInput" placeholder="Search courses...">
                 <div class="SearchIcon"><i class="fa fa-search"></i></div>
+            </div>
+    
+            <!-- Add this section to display the username and logout option -->
+            <div class="user-profile">
+                <span id="usernameDisplay"></span>
+                <div class="logout-dropdown">
+                    <button id="logoutButton">Logout</button>
+                </div>
             </div>
         </div>
     </header>
@@ -93,9 +102,9 @@
                     <h1 id="courseTitle">Course Title</h1>
                     <div class="course-meta">
                         <span class="category-badge" id="courseCategory">Category</span>
-                        <span class="rating">⭐ 4.5 (1.2k reviews)</span>
+                        <!-- <span class="rating">⭐ 4.5 (1.2k reviews)</span> -->
                     </div>
-                    <button class="enroll-button">Enroll Now</button>
+                    <!-- <button class="enroll-button">Enroll Now</button> -->
                 </div>
             </div>
 

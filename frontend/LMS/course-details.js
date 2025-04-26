@@ -16,6 +16,44 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
 
+    // Display the logged-in username
+    const usernameDisplay = document.getElementById('usernameDisplay');
+    const logoutButton = document.getElementById('logoutButton');
+
+    const username = localStorage.getItem('username');
+    if (username) {
+        usernameDisplay.textContent = username;
+    } else {
+        // If no username is found, redirect to login page
+        window.location.href = '../index.html';
+    }
+
+    // Handle logout
+    logoutButton.addEventListener('click', async () => {
+        const token = localStorage.getItem('token');
+        if (token) {
+            try {
+                // Call the logout API
+                await fetch('http://localhost:5001/logout', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}`
+                    }
+                });
+
+                // Clear local storage
+                localStorage.removeItem('token');
+                localStorage.removeItem('username');
+
+                // Redirect to login page
+                window.location.href = '../index.html';
+            } catch (error) {
+                console.error('Logout error:', error);
+            }
+        }
+    });
+
     if (courseId) {
         console.log("Course ID from URL:", courseId);
         fetchCourseById(courseId);
