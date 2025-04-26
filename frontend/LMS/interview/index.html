@@ -1,0 +1,87 @@
+<!-- Updated AI Interview Portal HTML
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>PrepBuddy - AI Interview Practice</title>
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Sofia+Sans+Semi+Condensed&display=swap" rel="stylesheet" />
+</head>
+<body>
+  <header>
+    <div class="nav-container">
+      <div class="logo">
+        <img src="../PrepBuddy.svg" alt="PrepBuddy" />
+      </div>
+      <h1>AI Interview Practice</h1>
+      <div class="menu">
+        <button id="home-btn" onclick="window.location.href='../LMS.html'">Back to Courses</button>
+      </div>
+    </div>
+  </header>
+
+  <div class="main-container">
+    <div class="interview-panel">
+      <div class="video-container">
+        <video id="video" width="640" height="480" autoplay muted></video>
+        <div class="overlay-stats">
+          <div id="status">Status: Ready to start</div>
+          <div id="noise-level">Noise Level: 0 dB</div>
+        </div>
+      </div>
+
+      <div class="question-panel">
+        <h2>Interview Questions</h2>
+        <div id="question" class="question-display">Question will appear here when you start</div>
+        
+        <div class="domain-selector">
+          <label for="domain-select">Interview Domain:</label>
+          <select id="domain-select">
+            <option value="general">General Interview</option>
+            <option value="software">Software Development</option>
+            <option value="marketing">Marketing</option>
+            <option value="finance">Finance</option>
+          </select>
+        </div>
+
+        <div class="control-buttons">
+          <button id="start-btn" class="action-button start">Start Interview</button>
+          <button id="end-btn" class="action-button end" disabled>End Interview</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="instructions-panel">
+      <h2>Interview Guidelines</h2>
+      <ul>
+        <li><i class="fa fa-check-circle"></i> Position yourself in a well-lit environment</li>
+        <li><i class="fa fa-check-circle"></i> Look directly at the camera when answering</li>
+        <li><i class="fa fa-check-circle"></i> Speak clearly with appropriate volume</li>
+        <li><i class="fa fa-check-circle"></i> Each question will display for 60 seconds</li>
+        <li><i class="fa fa-times-circle"></i> Avoid looking away from the camera frequently</li>
+        <li><i class="fa fa-times-circle"></i> Do not have other people in the frame</li>
+        <li><i class="fa fa-times-circle"></i> Minimize background noise during the session</li>
+      </ul>
+      <div class="dismissible-info" id="info-box">
+        <p><i class="fa fa-exclamation-triangle"></i> <strong>Note:</strong> This system monitors your face and audio to detect malpractice and assess your performance.
+        <span class="dismiss" onclick="document.getElementById('info-box').style.display='none'">&times;</span></p>
+      </div>
+    </div>
+  </div>
+
+  <div class="report-container hidden" id="report-section">
+    <h2>Interview Performance Report</h2>
+    <div id="report-content"></div>
+  </div>
+
+  <footer>
+    <p>&copy; 2025 PrepBuddy - AI Interview Practice Tool</p>
+  </footer>
+
+  <script defer src="https://cdn.jsdelivr.net/npm/face-api.js@0.22.2/dist/face-api.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@4.14.0"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/coco-ssd"></script>
+  <script defer src="interview-ai.js"></script>
+</body>
+</html> -->

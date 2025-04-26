@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Mock Interview | PrepBuddy</title>
+    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="interview.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/RecordRTC/5.6.2/RecordRTC.min.js"></script>
+    <!-- Add these to the head section of interview.html -->
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/blazeface"></script>
+</head>
+<body>
+    <div class="interview-container">
+        <div class="interview-header">
+            <h1>AI Mock Interview</h1>
+            <p>Practice your interview skills with our AI-powered mock interview system</p>
+        </div>
+
+        <!-- Domain Selection Screen -->
+        <div id="domain-selection" class="interview-screen active">
+            <h2>Select Your Interview Domain</h2>
+            <div class="domain-options">
+                <div class="domain-card" data-domain="dsa">
+                    <h3>Data Structures & Algorithms</h3>
+                    <p>Practice fundamental CS concepts</p>
+                </div>
+                <div class="domain-card" data-domain="backend">
+                    <h3>Backend Development</h3>
+                    <p>Server-side technologies and architecture</p>
+                </div>
+                <div class="domain-card" data-domain="frontend">
+                    <h3>Frontend Development</h3>
+                    <p>UI/UX and client-side technologies</p>
+                </div>
+                <div class="domain-card" data-domain="fullstack">
+                    <h3>Fullstack Development</h3>
+                    <p>End-to-end web development</p>
+                </div>
+            </div>
+            <div class="interview-tips">
+                <h3>Interview Tips</h3>
+                <ul>
+                    <li>Ensure good lighting and quiet environment</li>
+                    <li>Dress professionally as you would for a real interview</li>
+                    <li>Speak clearly and confidently</li>
+                    <li>Think before you answer</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Pre-interview Check Screen -->
+        <div id="pre-interview" class="interview-screen">
+            <h2>Setup Check</h2>
+            <div class="checklist">
+                <div class="check-item" id="mic-check">
+                    <h3>Microphone</h3>
+                    <p class="status">Checking...</p>
+                    <button class="retry-btn">Retry</button>
+                </div>
+                <div class="check-item" id="camera-check">
+                    <h3>Camera</h3>
+                    <p class="status">Checking...</p>
+                    <button class="retry-btn">Retry</button>
+                </div>
+                <div class="check-item" id="face-check">
+                    <h3>Face Detection</h3>
+                    <p class="status">Checking...</p>
+                    <button class="retry-btn">Retry</button>
+                </div>
+            </div>
+            <div class="video-preview">
+                <video id="user-video" autoplay muted playsinline></video>
+                <canvas id="face-canvas" width="640" height="480"></canvas>
+            </div>
+            <div class="interview-controls">
+                <button id="start-interview-btn" disabled>Begin Interview</button>
+            </div>
+        </div>
+
+        <!-- Interview Screen -->
+        <div id="interview-screen" class="interview-screen">
+            <div class="interview-header">
+                <h2 id="current-domain">Interview in Progress</h2>
+                <div class="interview-timer">
+                    <span id="question-timer">00:00</span>
+                    <span id="question-counter">Question 1/5</span>
+                </div>
+            </div>
+            <div class="interview-content">
+                <div class="question-section">
+                    <h3>Question:</h3>
+                    <div id="current-question" class="question-text"></div>
+                    <div class="recording-status">
+                        <div class="pulse-ring"></div>
+                        <span id="recording-status-text">Recording...</span>
+                    </div>
+                </div>
+                <div class="answer-section">
+                    <h3>Your Answer:</h3>
+                    <div id="user-answer" contenteditable="true" placeholder="Type your answer here..."></div>
+                    <div class="answer-controls">
+                        <button id="record-audio-btn">Record Audio Answer</button>
+                        <button id="submit-answer-btn">Submit Answer</button>
+                    </div>
+                </div>
+            </div>
+            <div class="monitoring-section">
+                <div class="video-feed">
+                    <video id="monitoring-video" autoplay muted playsinline></video>
+                    <canvas id="detection-canvas" width="640" height="480"></canvas>
+                </div>
+                <div class="monitoring-alerts" id="monitoring-alerts">
+                    <!-- Alerts will appear here -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Results Screen -->
+        <div id="results-screen" class="interview-screen">
+            <h2>Interview Results</h2>
+            <div class="results-summary">
+                <div class="score-card">
+                    <h3>Overall Score</h3>
+                    <div class="score-circle">
+                        <span id="overall-score">85</span>%
+                    </div>
+                </div>
+                <div class="category-scores">
+                    <div class="category">
+                        <h4>Technical Knowledge</h4>
+                        <div class="score-bar">
+                            <div id="technical-bar" class="bar-fill" style="width: 75%"></div>
+                        </div>
+                        <span id="technical-score" class="score-value">75%</span>
+                    </div>
+                    <div class="category">
+                        <h4>Communication</h4>
+                        <div class="score-bar">
+                            <div id="communication-bar" class="bar-fill" style="width: 80%"></div>
+                        </div>
+                        <span id="communication-score" class="score-value">80%</span>
+                    </div>
+                    <div class="category">
+                        <h4>Confidence</h4>
+                        <div class="score-bar">
+                            <div id="confidence-bar" class="bar-fill" style="width: 70%"></div>
+                        </div>
+                        <span id="confidence-score" class="score-value">70%</span>
+                    </div>
+                    <div class="category">
+                        <h4>Time Management</h4>
+                        <div class="score-bar">
+                            <div id="timing-bar" class="bar-fill" style="width: 85%"></div>
+                        </div>
+                        <span id="timing-score" class="score-value">85%</span>
+                    </div>
+                </div>
+            </div>
+            <div class="detailed-results">
+                <div class="questions-analysis">
+                    <h3>Question-by-Question Analysis</h3>
+                    <div id="questions-chart-container">
+                        <canvas id="questions-chart"></canvas>
+                    </div>
+                </div>
+                <div class="malpractice-report">
+                    <h3>Proctoring Report</h3>
+                    <div id="malpractice-list">
+                        <!-- Malpractice incidents will be listed here -->
+                    </div>
+                </div>
+            </div>
+            <div class="feedback-section">
+                <h3>Feedback & Suggestions</h3>
+                <div id="feedback-text" class="feedback-text">
+                    <!-- Feedback will be inserted here -->
+                </div>
+            </div>
+            <div class="results-actions">
+                <button id="save-results-btn">Save Results</button>
+                <button id="restart-interview-btn">Practice Again</button>
+                <button id="return-to-lms-btn">Return to LMS</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="interview.js"></script>
+</body>
+</html>

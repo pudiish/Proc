@@ -151,6 +151,14 @@ app.get("/api/courses/:id", async (req, res) => {
   }
 });
 
+app.post('/log', (req, res) => {
+  const { type, timestamp } = req.body;
+  logs.push({ type, timestamp });
+  console.log('Malpractice Logged:', type, timestamp);
+  res.status(200).json({ status: 'logged' });
+});
+
+
 // Start Server
 const PORT = 5002;
 app.listen(PORT, () => console.log(`🚀 Server running on http://localhost:${PORT}`));
