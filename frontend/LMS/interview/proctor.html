@@ -1,93 +1,3 @@
-<!-- <!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <title>PrepBuddy - AI Interview Practice</title>
-  <link rel="stylesheet" href="styles.css" />
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
-  <link href="https://fonts.googleapis.com/css2?family=Sofia+Sans+Semi+Condensed&display=swap" rel="stylesheet" />
-</head>
-<body>
-  <header>
-    <div class="nav-container">
-      <div class="logo">
-        <img src="../PrepBuddy.svg" alt="PrepBuddy" />
-      </div>
-      <h1>AI Interview Practice</h1>
-      <div class="menu">
-        <button id="home-btn" onclick="window.location.href='../LMS.html'">Back to Courses</button>
-      </div>
-    </div>
-  </header>
-
-  <div class="main-container">
-    <div class="interview-panel">
-      <div class="video-container">
-        <video id="video" width="640" height="480" autoplay muted></video>
-        <div class="overlay-stats">
-          <div id="status">Status: Ready to start</div>
-          <div id="noise-level">Noise Level: 0 dB</div>
-        </div>
-      </div>
-
-      <div class="question-panel">
-        <h2>Interview Questions</h2>
-        <div id="question" class="question-display">Question will appear here when you start</div>
-        
-        <div class="domain-selector">
-          <label for="domain-select">Interview Domain:</label>
-          <select id="domain-select">
-            <option value="general">General Interview</option>
-            <option value="software">Software Development</option>
-            <option value="marketing">Marketing</option>
-            <option value="finance">Finance</option>
-          </select>
-        </div>
-
-        <div class="control-buttons">
-          <button id="start-btn" class="action-button start">Start Interview</button>
-          <button id="end-btn" class="action-button end" disabled>End Interview</button>
-        </div>
-      </div>
-    </div>
-
-    <div class="instructions-panel">
-      <h2>Interview Guidelines</h2>
-      <ul>
-        <li><i class="fa fa-check-circle"></i> Position yourself in a well-lit environment</li>
-        <li><i class="fa fa-check-circle"></i> Look directly at the camera when answering</li>
-        <li><i class="fa fa-check-circle"></i> Speak clearly with appropriate volume</li>
-        <li><i class="fa fa-check-circle"></i> Each question will display for 60 seconds</li>
-        <li><i class="fa fa-times-circle"></i> Avoid looking away from the camera frequently</li>
-        <li><i class="fa fa-times-circle"></i> Do not have other people in the frame</li>
-        <li><i class="fa fa-times-circle"></i> Minimize background noise during the session</li>
-      </ul>
-      <div class="warning-box">
-        <p><i class="fa fa-exclamation-triangle"></i> <strong>Note:</strong> This system monitors your face and audio to detect malpractice and assess your performance.</p>
-      </div>
-    </div>
-  </div>
-
-  <div id="warning-display" class="hidden"></div> -->
-
-
-  <!-- Report Section -->
-  <!-- <div class="report-container hidden" id="report-section">
-    <h2>Interview Performance Report</h2>
-    <div id="report-content"></div>
-  </div>
-
-  <footer>
-    <p>&copy; 2025 PrepBuddy - AI Interview Practice Tool</p>
-  </footer>
-
-  <script defer src="https://cdn.jsdelivr.net/npm/face-api.js@0.22.2/dist/face-api.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@4.14.0"></script>
-<script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/coco-ssd"></script>
-
-  <script defer src="proctor.js"></script>
-</body>
-</html>  -->
 
 
 
@@ -102,25 +12,37 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AI Interview - PrepBuddy</title>
     <link rel="stylesheet" href="styles.css">
-    <!-- <link rel="stylesheet" href="../styles.css"> -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 </head>
-<!-- <body class="interview-page"></body>
-
     <header>
-        <div class="logo">
-            <img src="../PrepBuddy.svg" alt="PrepBuddy Logo">
-            <h1>PrepBuddy</h1>
-        </div>
-        <nav>
-            <ul>
-                <li><a href="../LMS.html">Courses</a></li>
-                <li><a href="../quiz.html">Quizzes</a></li>
-                <li><a href="interview.html" class="active">AI Interview</a></li>
-                <li class="profile-icon"><a href="#"><img src="../tt.jpg" alt="Profile" class="profile-img"></a></li>
-            </ul>
-        </nav>
-    </header> -->
+      <div class="nav-container">
+          <div class="logo">
+              <img src="../PrepBuddy.svg" alt="PrepBuddy">
+          </div>
+
+          <ul class="menu">
+              <li><a href="../LMS.html">Home</a></li>
+              <!-- <li><a href="../admin/admin-add-course.html">Admin</a></li>
+              <li><a href="../frontend/quiz.html" class="nav-link">Contests</a></li>
+              <li><a href="../frontend/about.html" class="nav-link">About</a></li> -->
+
+          </ul>
+
+          <!-- Search Bar -->
+          <!-- <div class="SearchBar_Header">
+              <input type="text" id="searchInput" placeholder="Search courses...">
+              <div class="SearchIcon"><i class="fa fa-search"></i></div>
+          </div> -->
+
+          <!-- User Profile and Logout -->
+          <div class="user-profile">
+              <span id="usernameDisplay"></span>
+              <div class="logout-dropdown">
+                  <button id="logoutButton">Logout</button>
+              </div>
+          </div>
+      </div>
+  </header>
+
 
     <main>
         <div class="interview-container">

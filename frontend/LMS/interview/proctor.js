@@ -48,6 +48,47 @@ const MALPRACTICE_THRESHOLDS = {
   PROHIBITED_ITEMS: ["phone", "paper", "book", "device"]
 };
 
+// ==================== USER PROFILE AND LOGOUT FUNCTIONALITY ====================
+
+const usernameDisplay = document.getElementById('usernameDisplay');
+const logoutButton = document.getElementById('logoutButton');
+
+// Display the logged-in username
+const username = localStorage.getItem('username');
+if (username) {
+    usernameDisplay.textContent = username;
+} else {
+    // If no username is found, redirect to login page
+    window.location.href = 'http://127.0.0.1:5500/frontend/index.html';
+}
+
+// Handle logout
+logoutButton.addEventListener('click', async () => {
+    const token = localStorage.getItem('token');
+    if (token) {
+        try {
+            // Call the logout API
+            await fetch('http://localhost:5001/logout', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                }
+            });
+
+            // Clear local storage
+            localStorage.removeItem('token');
+            localStorage.removeItem('username');
+
+            // Redirect to login page
+            window.location.href = 'http://127.0.0.1:5500/frontend/index.html';
+        } catch (error) {
+            console.error('Logout error:', error);
+        }
+    }
+});
+
+
 const interviewQuestions = {
   software: [
     "Tell me about your experience with object-oriented programming.",
