@@ -1,0 +1,340 @@
+
+
+
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Interview - PrepBuddy</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+    <header>
+      <div class="nav-container">
+          <div class="logo">
+              <img src="../PrepBuddy.svg" alt="PrepBuddy">
+          </div>
+
+          <ul class="menu">
+              <li><a href="../LMS.html">Home</a></li>
+              <!-- <li><a href="../admin/admin-add-course.html">Admin</a></li>
+              <li><a href="../frontend/quiz.html" class="nav-link">Contests</a></li>
+              <li><a href="../frontend/about.html" class="nav-link">About</a></li> -->
+
+          </ul>
+
+          <!-- Search Bar -->
+          <!-- <div class="SearchBar_Header">
+              <input type="text" id="searchInput" placeholder="Search courses...">
+              <div class="SearchIcon"><i class="fa fa-search"></i></div>
+          </div> -->
+
+          <!-- User Profile and Logout -->
+          <div class="user-profile">
+              <span id="usernameDisplay"></span>
+              <div class="logout-dropdown">
+                  <button id="logoutButton">Logout</button>
+              </div>
+          </div>
+      </div>
+  </header>
+
+
+    <main>
+        <div class="interview-container">
+            <div class="interview-setup" id="interview-setup">
+                <h2>AI Interview Preparation</h2>
+                <div class="interview-options">
+                    <div class="option-group">
+                        <label for="interview-type">Interview Type:</label>
+                        <select id="interview-type">
+                            <option value="technical">Technical Interview</option>
+                            <option value="behavioral">Behavioral Interview</option>
+                            <option value="hr">HR Interview</option>
+                            <option value="coding">Coding Interview</option>
+                        </select>
+                    </div>
+
+                    <div class="option-group">
+                        <label for="difficulty">Difficulty Level:</label>
+                        <select id="difficulty">
+                            <option value="beginner">Beginner</option>
+                            <option value="intermediate">Intermediate</option>
+                            <option value="advanced">Advanced</option>
+                        </select>
+                    </div>
+
+                    <div class="option-group">
+                        <label for="duration">Interview Duration:</label>
+                        <select id="duration">
+                            <option value="10">10 minutes</option>
+                            <option value="15">15 minutes</option>
+                            <option value="20">20 minutes</option>
+                            <option value="30">30 minutes</option>
+                        </select>
+                    </div>
+
+                    <div class="option-group">
+                        <label for="position">Target Position:</label>
+                        <input type="text" id="position" placeholder="e.g., Frontend Developer, Data Scientist">
+                    </div>
+                </div>
+
+                <div class="device-check">
+                    <h3>Device Check</h3>
+                    <div class="device-status">
+                        <div class="status-item" id="camera-status">
+                            <span class="status-icon">⚪</span>
+                            <span>Camera</span>
+                            <button id="check-camera">Check</button>
+                        </div>
+                        <div class="status-item" id="microphone-status">
+                            <span class="status-icon">⚪</span>
+                            <span>Microphone</span>
+                            <button id="check-microphone">Check</button>
+                        </div>
+                        <div class="status-item" id="speaker-status">
+                            <span class="status-icon">⚪</span>
+                            <span>Speaker</span>
+                            <button id="check-speaker">Check</button>
+                        </div> 
+                    </div>
+                    <div id="preview-container" class="hidden">
+                        <video id="camera-preview" autoplay muted></video>
+                        <div id="audio-visualizer"></div>
+                    </div>
+                </div>
+
+                <div class="interview-instructions">
+                    <h3>Instructions:</h3>
+                    <ul>
+                        <li>Make sure you're in a quiet environment with good lighting.</li>
+                        <li>Keep your face clearly visible throughout the interview.</li>
+                        <li>You'll have 1 minute to answer each question.</li>
+                        <li>The AI will detect malpractices (no face visible, background noise, etc.).</li>
+                        <li>After 5 warnings, the interview will end automatically.</li>
+                        <li>You'll receive a performance score and detailed feedback at the end.</li>
+                    </ul>
+                </div>
+
+                <button id="start-interview" class="btn-primary" disabled>Start Interview</button>
+            </div>
+
+            <div class="interview-session hidden" id="interview-session">
+                <div class="interview-header">
+                    <div class="interview-info">
+                        <span id="interview-type-display">Technical Interview</span>
+                        <span id="remaining-time">00:00</span>
+                    </div>
+                    <div class="warning-display">
+                        <span>Warnings: </span>
+                        <span id="warning-count">0/5</span>
+                    </div>
+                </div>
+
+                <div class="interview-main">
+                    <div class="video-container">
+                        <video id="user-video" autoplay muted></video>
+                        <div class="status-indicators">
+                            <div id="mic-indicator" class="indicator active">🎤</div>
+                            <div id="camera-indicator" class="indicator active">📹</div>
+                        </div>
+                    </div>
+
+                    <div class="interview-interaction">
+                        <div class="question-display">
+                            <h3>Question:</h3>
+                            <p id="current-question"></p>
+                        </div>
+                        <div class="answer-timer">
+                            <div id="timer-bar"></div>
+                            <span id="answer-time-remaining">60s</span>
+                        </div>
+                        <div class="controls">
+                            <button id="mute-toggle" class="control-btn">Mute</button>
+                            <button id="camera-toggle" class="control-btn">Turn off camera</button>
+                            <button id="next-question" class="control-btn">Next Question</button>
+                            <button id="end-interview" class="control-btn danger">End Interview</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="warning-log">
+                    <h3>Warnings:</h3>
+                    <ul id="warnings-list"></ul>
+                </div>
+            </div>
+
+            <div class="interview-results hidden" id="interview-results">
+                <h2>Interview Results</h2>
+                <div class="results-summary">
+                    <div class="score-display">
+                        <div class="score-circle">
+                            <span id="final-score">0</span>/100
+                        </div>
+                        <p>Overall Performance</p>
+                    </div>
+                    <div class="result-stats">
+                        <div class="stat-item">
+                            <span class="stat-label">Questions Answered:</span>
+                            <span id="questions-answered">0/0</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-label">Warnings Received:</span>
+                            <span id="total-warnings">0</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-label">Interview Duration:</span>
+                            <span id="interview-duration">0 min</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="detailed-feedback">
+                    <h3>Detailed Feedback</h3>
+                    <div id="feedback-content"></div>
+                </div>
+                
+                <div class="question-breakdown">
+                    <h3>Question-by-Question Breakdown</h3>
+                    <div id="question-breakdown-content"></div>
+                </div>
+                
+                <div class="result-actions">
+                    <button id="download-report" class="btn-primary">Download Report</button>
+                    <button id="new-interview" class="btn-secondary">Start New Interview</button>
+                    <button id="return-dashboard" class="btn-secondary">Return to Dashboard</button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <div class="modal" id="warning-modal">
+        <div class="modal-content">
+            <h3 id="warning-title">Warning Detected</h3>
+            <p id="warning-message"></p>
+            <button id="acknowledge-warning">OK</button>
+        </div>
+    </div>
+
+    <div class="modal" id="end-confirmation-modal">
+        <div class="modal-content">
+            <h3>End Interview?</h3>
+            <p>Are you sure you want to end the interview? This action cannot be undone.</p>
+            <div class="modal-buttons">
+                <button id="confirm-end">Yes, End Interview</button>
+                <button id="cancel-end">No, Continue</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="interview-ai1.js"></script>
+</body>
+</html>
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>PrepBuddy - AI Interview Practice</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/all.min.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Sofia+Sans+Semi+Condensed:ital,wght@0,300;0,400;1,400&display=swap" rel="stylesheet">
+</head>
+<body>
+  <header>
+    <div class="nav-container">
+      <div class="logo">
+        <img src="../PrepBuddy.svg" alt="PrepBuddy">
+      </div>
+      <h1>AI Interview Practice</h1>
+      <div class="menu">
+        <button id="home-btn" onclick="window.location.href='../LMS.html'">Back to Courses</button>
+      </div>
+    </div>
+  </header>
+
+  <div class="main-container">
+    <div class="interview-panel">
+      <div class="video-container">
+        <video id="video" width="640" height="480" autoplay muted></video>
+        <div class="overlay-stats">
+          <div id="status">Status: Ready to start</div>
+          <div id="noise-level">Noise Level: 0 dB</div>
+        </div>
+      </div>
+
+      <div class="question-panel">
+        <h2>Interview Questions</h2>
+        <div id="question" class="question-display">Question will appear here when you start</div>
+        
+        <div class="domain-selector">
+          <label for="domain-select">Interview Domain:</label>
+          <select id="domain-select">
+            <option value="general">General Interview</option>
+            <option value="software">Software Development</option>
+            <option value="marketing">Marketing</option>
+            <option value="finance">Finance</option>
+          </select>
+        </div>
+        
+        <div class="control-buttons">
+          <button id="start-btn" class="action-button start">Start Interview</button>
+          <button id="end-btn" class="action-button end" disabled>End Interview</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="instructions-panel">
+      <h2>Interview Guidelines</h2>
+      <ul>
+        <li><i class="fa fa-check-circle"></i> Position yourself in a well-lit environment</li>
+        <li><i class="fa fa-check-circle"></i> Look directly at the camera when answering</li>
+        <li><i class="fa fa-check-circle"></i> Speak clearly with appropriate volume</li>
+        <li><i class="fa fa-check-circle"></i> Each question will display for 60 seconds</li>
+        <li><i class="fa fa-times-circle"></i> Avoid looking away from the camera frequently</li>
+        <li><i class="fa fa-times-circle"></i> Do not have other people in the frame</li>
+        <li><i class="fa fa-times-circle"></i> Minimize background noise during the session</li>
+      </ul>
+      
+      <div class="warning-box">
+        <p><i class="fa fa-exclamation-triangle"></i> <strong>Note:</strong> This system monitors your face presence and audio levels to provide feedback on your interview performance.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="report-container hidden" id="report-section">
+    <h2>Interview Performance Report</h2>
+    <div id="report-content"></div>
+  </div>
+
+  <footer>
+    <p>&copy; 2025 PrepBuddy - AI Interview Practice Tool</p>
+  </footer>
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/face-api.js@0.22.2/dist/face-api.min.js"></script>
+
+  <script defer src="interview-ai.js"></script>
+</body>
+</html> -->
