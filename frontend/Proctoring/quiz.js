@@ -50,10 +50,10 @@ const nextButton = document.getElementById("next-btn");
 const startTestContainer = document.getElementById("start-test-container");
 const statusMessage = document.getElementById("status-message");
 const setupContainer = document.getElementById("setup-container");
-//const username = localStorage.getItem("username") || "Guest";  // Retrieve logged-in user
 const username = localStorage.getItem("username") || "Guest";
+
 // Retrieve auth token and session ID from localStorage
-let authToken = localStorage.getItem("token");
+let authToken = localStorage.getItem("authToken");
 let sessionId = localStorage.getItem("sessionId");
 
 ///////////////////////// Nav-Bar /////////////////////////
@@ -81,13 +81,12 @@ menuItems.forEach(item => {
     });
 });
 
-
 // Add logout functionality
 const logoutButton = document.getElementById('logout-btn');
 if (logoutButton) {
     logoutButton.addEventListener('click', function() {
         // Clear auth token and session ID from localStorage
-        localStorage.removeItem('token');
+        localStorage.removeItem('authToken');
         localStorage.removeItem('sessionId');
         localStorage.removeItem('username');
 
@@ -99,8 +98,6 @@ if (logoutButton) {
 }
 
 ////////////////////////////////
-
-
 
 // Ensure submenu items and main links work correctly
 document.querySelectorAll('.nav-link, .Submenu a, .Submenu2 a, .Submenu3 a').forEach(link => {
@@ -123,71 +120,63 @@ document.addEventListener('click', function(e) {
     }
 });
 
-// // ==================== SEARCH BAR FUNCTIONALITY ====================
-
-// const searchIcon = document.querySelector('.SearchIcon');
-// const searchBar = document.querySelector('.SearchBar_Header input');
-
-// searchIcon.addEventListener('click', function() {
-//     searchBar.style.width = searchBar.style.width === '240px' ? '120px' : '240px';
-//     searchBar.focus();
-// });
-
-
-
-
 // ✅ Initialize quiz when page loads
 document.addEventListener("DOMContentLoaded", function() {
     console.log("✅ DOM fully loaded and parsed");
     
     // Check if auth token exists in localStorage
-    if (!authToken) {
-        console.log("❌ No auth token found in localStorage");
+    authToken = localStorage.getItem("authToken");
+    sessionId = localStorage.getItem("sessionId");
+    
+    if (!authToken || !sessionId) {
+        console.log("❌ No auth token or session ID found in localStorage");
         alert("Please log in to access the quiz");
-        if (typeof window !== 'undefined') {
-            window.location.href = "../index.html"; // Adjust to your login page URL
-            return;
-        }
-    } else {
-        console.log("✅ Auth token found, verifying...");
-        
-        // Verify token is still valid
-        verifyToken()
-            .then(valid => {
-                if (valid) {
-                    console.log("✅ Token verification successful");
-                    setupContainer.classList.remove("hidden");
-                    startTestContainer.classList.add("hidden");
-                    quizContainer.classList.add("hidden");
-                    updateStatusMessage("Please enable your camera to begin");
-                } else {
-                    console.log("❌ Token verification failed");
-                    alert("Your session has expired. Please log in again.");
-                    // Clear invalid token
-                    localStorage.removeItem("authToken");
-                    localStorage.removeItem("sessionId");
-                    
-                    if (typeof window !== 'undefined') {
-                        window.location.href = "../index.html"; // Adjust to your login page URL
-                    }
-                }
-            })
-            .catch(error => {
-                console.error("❌ Token verification error:", error);
-                alert("An error occurred verifying your session. Please log in again.");
-                if (typeof window !== 'undefined') {
-                    window.location.href = "../index.html";
-                }
-            });
+        window.location.href = "../index.html";
+        return;
     }
+    
+    console.log("✅ Auth token found, verifying...");
+    
+    // Verify token is still valid
+    verifyToken()
+        .then(valid => {
+            if (valid) {
+                console.log("✅ Token verification successful");
+                setupContainer.classList.remove("hidden");
+                startTestContainer.classList.add("hidden");
+                quizContainer.classList.add("hidden");
+                updateStatusMessage("Please enable your camera to begin");
+            } else {
+                console.log("❌ Token verification failed");
+                // Clear invalid tokens
+                localStorage.removeItem("authToken");
+                localStorage.removeItem("sessionId");
+                localStorage.removeItem("username");
+                
+                alert("Your session has expired. Please log in again.");
+                window.location.href = "../index.html";
+            }
+        })
+        .catch(error => {
+            console.error("❌ Token verification error:", error);
+            // Clear tokens on error to be safe
+            localStorage.removeItem("authToken");
+            localStorage.removeItem("sessionId");
+            localStorage.removeItem("username");
+            
+            alert("An error occurred verifying your session. Please log in again.");
+            window.location.href = "../index.html";
+        });
 });
-
 
 async function verifyToken() {
     try {
         console.log("🔍 Verifying token:", authToken ? "Token exists" : "No token");
         
-        if (!authToken) return false;
+        if (!authToken) {
+            console.log("No auth token found");
+            return false;
+        }
         
         const response = await fetch("http://localhost:5001/verify-token", {
             method: "POST",
@@ -204,13 +193,19 @@ async function verifyToken() {
         
         const data = await response.json();
         console.log("✅ Token verification response:", data);
-        return data.valid;
+        
+        // Make sure the response has a valid property
+        if (data && typeof data.valid === 'boolean') {
+            return data.valid;
+        }
+        
+        console.warn("Invalid verification response format");
+        return false;
     } catch (error) {
         console.error("❌ Token verification failed:", error);
         return false;
     }
 }
-
 
 function updateStatusMessage(message, isSuccess = false) {
     if (statusMessage) {

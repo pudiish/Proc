@@ -36,6 +36,7 @@ mongoose.connect("mongodb://127.0.0.1:27017/lms")
   process.exit(1);
 });
 
+
 // Authentication Middleware
 const authenticateToken = (req, res, next) => {
   const authHeader = req.headers['authorization'];

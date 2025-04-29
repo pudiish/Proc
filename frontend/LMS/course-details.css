@@ -1,3 +1,20 @@
+.course-details-container,
+.course-header,
+.course-header-info,
+.course-header-info h1,
+.section-header {
+    font-family: 'Sofia Sans Semi Condensed', sans-serif;
+}
+
+
+
+/* Apply font globally */
+body {
+    margin: 0;
+    padding: 0;
+}
+
+/* Remove all repeated font-family declarations in other selectors */
 .course-details-container {
     max-width: 1200px;
     margin: 40px auto;
@@ -284,21 +301,21 @@
     .course-header {
         flex-direction: column;
     }
-    
+
     .course-header img {
         width: 100%;
         height: auto;
     }
-    
+
     .course-tabs {
         overflow-x: auto;
         white-space: nowrap;
     }
-    
+
     .tab-button {
         padding: 10px 15px;
     }
-    
+
     .instructor-profile {
         flex-direction: column;
         text-align: center;
